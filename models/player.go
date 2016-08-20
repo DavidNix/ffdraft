@@ -1,5 +1,12 @@
 package models
 
+// Response from fantasyfootballanalytics.net in format Data.pointsTable -> array of players
+type Response struct {
+	Data struct {
+		Players []Player `json:"pointsTable"`
+	} `json:"Data"`
+}
+
 // Player of any type
 type Player struct {
 	ID                int     `json:"playerId"`
@@ -8,7 +15,7 @@ type Player struct {
 	Team              string  `json:"team"`
 	VOR               float64 `json:"vor"`
 	Points            float64 `json:"points"`
-	OverallECR        float64 `json:"overallECR"`
+	ECR               float64 `json:"overallECR"`
 	OverallRank       float64 `json:"overallRank"`
 	PositionRank      float64 `json:"positionRank"`
 	TargetAuctionCost float64 `json:"cost"`

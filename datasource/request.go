@@ -1,8 +1,8 @@
 package datasource
 
-const requestURL = "http://apps.fantasyfootballanalytics.net/LineupOptimizer/LoadData"
+const analyticsURL = "http://apps.fantasyfootballanalytics.net/LineupOptimizer/LoadData"
 
-const requestBody = `
+const analyticsRequestBody = `
 {
 	"season": 2016,
 	"week": "0",
