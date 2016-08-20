@@ -13,8 +13,8 @@ func main() {
 
 	s := spinner.New(spinner.CharSets[7], 100*time.Millisecond)
 	s.Start()
-	defer s.Stop()
 	players, err := datasource.LoadPlayers()
+	s.Stop()
 	if err != nil {
 		log.Fatal("unable to fetch player data: ", err)
 	}
