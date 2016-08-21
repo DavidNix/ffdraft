@@ -12,6 +12,7 @@ import (
 )
 
 const usage = `
+--------------------------------------------------------------------------------------------------------------------
 Commands:
     find, f [player name]: fuzzy finds players matching player name
     pick, p [player name]: fuzzy finds players and asks which player to pick, removing them from the draft pool
@@ -21,11 +22,12 @@ Commands:
     help, h: print this usage text
     exit: exits this program
 *By default, this program always prints the result of the floor command after every command.
+--------------------------------------------------------------------------------------------------------------------
 `
 
 func main() {
 	fmt.Println("Welcome to fantasy football!")
-	fmt.Println(usage, "\n")
+	fmt.Println(usage)
 	fmt.Println("Fetching current player data...")
 
 	s := startSpinner()
@@ -63,7 +65,7 @@ Loop:
 			fmt.Println("find the top ceiling players")
 
 		case "help", "h", "usage":
-			fmt.Println(usage, "\n")
+			fmt.Println(usage)
 
 		case "exit":
 			break Loop
