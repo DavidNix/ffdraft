@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"github.com/briandowns/spinner"
 	//"github.com/davidnix/ffdraft/datasource"
-	"bufio"
-	"log"
-	"os"
+	"github.com/davidnix/ffdraft/command"
+	//"log"
 	"strings"
 	"time"
 )
@@ -39,7 +38,7 @@ func main() {
 	//fmt.Println("total players", len(players))
 Loop:
 	for {
-		input := strings.Fields(getInput())
+		input := strings.Fields(command.GetInput())
 		var cmd string
 		var args []string
 		if len(input) > 0 {
@@ -79,16 +78,6 @@ Loop:
 	}
 
 	fmt.Println("Program exited")
-}
-
-func getInput() string {
-	fmt.Print("Command: ")
-	in := bufio.NewReader(os.Stdin)
-	line, err := in.ReadString('\n')
-	if err != nil {
-		log.Fatal("unable to read input:", err)
-	}
-	return strings.TrimSpace(line)
 }
 
 func startSpinner() *spinner.Spinner {
