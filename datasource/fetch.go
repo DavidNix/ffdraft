@@ -29,5 +29,10 @@ func LoadPlayers() ([]models.Player, error) {
 		return nil, err
 	}
 
-	return p.Data.Players, nil
+	players := p.Data.Players
+	if len(players) == 0 {
+		return nil, errors.New("response returned 0 players")
+	}
+
+	return players, nil
 }
