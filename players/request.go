@@ -1,4 +1,4 @@
-package datasource
+package players
 
 const analyticsURL = "http://apps.fantasyfootballanalytics.net/LineupOptimizer/LoadData"
 

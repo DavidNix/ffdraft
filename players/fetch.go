@@ -1,9 +1,8 @@
-package datasource
+package players
 
 import (
 	"encoding/json"
 	"errors"
-	"github.com/davidnix/ffdraft/models"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -11,7 +10,7 @@ import (
 
 // LoadPlayers gets data from http://fantasyfootballanalytics.net and also combines data from another source to
 // update player injury and suspension notes
-func LoadPlayers() ([]models.Player, error) {
+func Load() ([]Player, error) {
 	resp, err := http.Post(analyticsURL, "application/json", strings.NewReader(analyticsRequestBody))
 	defer resp.Body.Close()
 	if err != nil {
@@ -24,7 +23,7 @@ func LoadPlayers() ([]models.Player, error) {
 	if err != nil {
 		return nil, err
 	}
-	var p models.Response
+	var p Response
 	if err := json.Unmarshal(data, &p); err != nil {
 		return nil, err
 	}
@@ -35,4 +34,16 @@ func LoadPlayers() ([]models.Player, error) {
 	}
 
 	return players, nil
+}
+
+func LoadFromFile(path string) ([]Player, error) {
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	var serialized Response
+	if err := json.Unmarshal(data, &serialized); err != nil {
+		return nil, err
+	}
+	return serialized.Data.Players, nil
 }

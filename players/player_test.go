@@ -1,24 +1,13 @@
-package models
+package players
 
 import (
-	"encoding/json"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
 	"testing"
 )
 
 func TestUnmarshal(t *testing.T) {
-	data, err := ioutil.ReadFile("../test/ff_response_fixture.json")
-	if err != nil {
-		assert.NoError(t, err)
-		return
-	}
-	var serialized Response
-	if err := json.Unmarshal(data, &serialized); err != nil {
-		assert.NoError(t, err)
-		return
-	}
-	players := serialized.Data.Players
+	players, err := LoadFromFile("../test/ff_response_fixture.json")
+	assert.NoError(t, err)
 
 	assert.True(t, len(players) > 0)
 
