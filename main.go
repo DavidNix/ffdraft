@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/briandowns/spinner"
-	//"github.com/davidnix/ffdraft/datasource"
 	"github.com/davidnix/ffdraft/command"
-	//"log"
+	"github.com/davidnix/ffdraft/players"
+	"log"
 	"strings"
 	"time"
 )
@@ -30,12 +30,14 @@ func main() {
 	fmt.Println("Fetching current player data...")
 
 	s := startSpinner()
-	//players, err := datasource.LoadPlayers()
+	undrafted, err := players.LoadFromFile("./test/ff_response_fixture.json")
 	s.Stop()
-	//if err != nil {
-	//	log.Fatal("unable to fetch player data:", err)
-	//}
-	//fmt.Println("total players", len(players))
+	if err != nil {
+		log.Fatal("unable to fetch player data:", err)
+	}
+	fmt.Println("total players", len(undrafted))
+	repo := &players.Repo{UnDrafted: undrafted, Drafted: []players.Player{}}
+
 Loop:
 	for {
 		input := strings.Fields(command.GetInput())
@@ -49,7 +51,7 @@ Loop:
 
 		switch cmd {
 		case "find", "f":
-			fmt.Println("find a player")
+			command.Find(repo, args)
 
 		case "pick", "p":
 			fmt.Println("pick from a list of players")

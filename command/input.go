@@ -9,7 +9,7 @@ import (
 )
 
 func GetInput() string {
-	fmt.Print("Command: ")
+	fmt.Print("> ")
 	in := bufio.NewReader(os.Stdin)
 	line, err := in.ReadString('\n')
 	if err != nil {
