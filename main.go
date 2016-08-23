@@ -46,7 +46,6 @@ Loop:
 		if len(input) > 0 {
 			cmd = input[0]
 			args = input[1:]
-			fmt.Println("args", args)
 		}
 
 		switch cmd {
