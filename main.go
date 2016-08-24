@@ -64,7 +64,7 @@ Loop:
 			command.Floor(repo)
 
 		case "ceil":
-			fmt.Println("find the top ceiling players")
+            command.Ceil(repo)
 
 		case "help", "h", "usage":
 			fmt.Println(usage)
