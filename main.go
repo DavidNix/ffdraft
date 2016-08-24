@@ -59,7 +59,7 @@ Loop:
 		case "unpick", "u":
 			fmt.Println("unpick from a list of players")
 
-		case "floor":
+		case "floor", "fl":
 			fmt.Println("find the top floor players")
 
 		case "ceil":
