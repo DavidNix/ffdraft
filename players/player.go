@@ -4,6 +4,26 @@ import (
 	"fmt"
 )
 
+const (
+	QB  = "QB"
+	WR  = "WR"
+	RB  = "RB"
+	TE  = "TE"
+	DST = "DST"
+	K   = "K"
+)
+
+func Positions() map[string]bool {
+	return map[string]bool{
+		QB:  true,
+		WR:  true,
+		RB:  true,
+		TE:  true,
+		DST: true,
+		K:   true,
+	}
+}
+
 // Response from fantasyfootballanalytics.net in format Data.pointsTable -> array of players
 type Response struct {
 	Data struct {

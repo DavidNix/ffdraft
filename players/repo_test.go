@@ -6,14 +6,15 @@ import (
 )
 
 var drafted []Player = []Player{
-	{ID: 1, Name: "Antonio Brown"},
-	{ID: 2, Name: "Tony Romo"},
+	{ID: 1, Name: "Antonio Brown", Position: "WR"},
+	{ID: 2, Name: "Tony Romo", Position: "QB"},
 }
 
 var unDrafted []Player = []Player{
 	{ID: 3, Name: "Jason Witten"},
 	{ID: 4, Name: "Josh Gordon"},
 	{ID: 5, Name: "Joshua Smith"},
+	{ID: 99, Name: "Tim Tebow", Position: "Baseball"},
 }
 
 var subject *Repo = &Repo{
@@ -40,4 +41,11 @@ func TestRepo_Find(t *testing.T) {
 	count := len(subject.Find("josh"))
 
 	assert.Equal(t, count, 2)
+}
+
+func TestNewRepo(t *testing.T) {
+	r := NewRepo(unDrafted)
+
+	tebow := r.Find("Tim Tebow")
+	assert.Equal(t, len(tebow), 0)
 }
