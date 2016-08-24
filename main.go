@@ -30,13 +30,14 @@ func main() {
 	fmt.Println("Fetching current player data...")
 
 	s := startSpinner()
+	//undrafted, err := players.Load()
 	undrafted, err := players.LoadFromFile("./test/ff_response_fixture.json")
 	s.Stop()
 	if err != nil {
 		log.Fatal("unable to fetch player data:", err)
 	}
-	fmt.Println("total players", len(undrafted))
-	repo := &players.Repo{UnDrafted: undrafted, Drafted: []players.Player{}}
+	repo := players.NewRepo(undrafted)
+	fmt.Println("Loaded", len(repo.UnDrafted), "offensive players")
 
 Loop:
 	for {
