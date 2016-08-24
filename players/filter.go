@@ -1,7 +1,5 @@
 package players
 
-import "fmt"
-
 type filterFunc func(p Player) bool
 
 func filter(ps []Player, f filterFunc) []Player {
@@ -11,6 +9,5 @@ func filter(ps []Player, f filterFunc) []Player {
 			filtered = append(filtered, player)
 		}
 	}
-	fmt.Println("filtered", len(filtered))
 	return filtered
 }

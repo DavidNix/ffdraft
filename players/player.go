@@ -13,15 +13,23 @@ const (
 	K   = "K"
 )
 
-func Positions() map[string]bool {
-	return map[string]bool{
-		QB:  true,
-		WR:  true,
-		RB:  true,
-		TE:  true,
-		DST: true,
-		K:   true,
+func OrderedPositions() []string {
+	return []string{
+		RB,
+		WR,
+		TE,
+		QB,
+		DST,
+		K,
 	}
+}
+
+func Positions() map[string]bool {
+	pos := make(map[string]bool)
+	for _, v := range OrderedPositions() {
+		pos[v] = true
+	}
+	return pos
 }
 
 // Response from fantasyfootballanalytics.net in format Data.pointsTable -> array of players

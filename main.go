@@ -38,6 +38,7 @@ func main() {
 	}
 	repo := players.NewRepo(undrafted)
 	fmt.Println("Loaded", len(repo.UnDrafted), "offensive players")
+	command.Floor(repo)
 
 Loop:
 	for {
@@ -60,7 +61,7 @@ Loop:
 			fmt.Println("unpick from a list of players")
 
 		case "floor", "fl":
-			fmt.Println("find the top floor players")
+			command.Floor(repo)
 
 		case "ceil":
 			fmt.Println("find the top ceiling players")
