@@ -11,9 +11,9 @@ var drafted []Player = []Player{
 }
 
 var unDrafted []Player = []Player{
-	{ID: 3, Name: "Jason Witten"},
-	{ID: 4, Name: "Josh Gordon"},
-	{ID: 5, Name: "Joshua Smith"},
+	{ID: 3, Name: "Jason Witten", Position: "TE"},
+	{ID: 4, Name: "Josh Gordon", Position: "WR"},
+	{ID: 5, Name: "Joshua Smith", Position: "RB"},
 	{ID: 99, Name: "Tim Tebow", Position: "Baseball"},
 }
 
@@ -48,4 +48,7 @@ func TestNewRepo(t *testing.T) {
 
 	tebow := r.Find("Tim Tebow")
 	assert.Equal(t, len(tebow), 0)
+
+	witten := r.Find("Witten")
+	assert.Equal(t, len(witten), 1)
 }
