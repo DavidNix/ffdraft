@@ -14,8 +14,8 @@ const usage = `
 --------------------------------------------------------------------------------------------------------------------
 Commands:
     find, f [player name]: fuzzy finds players matching player name
-    pick, p [player name]: fuzzy finds players and asks which player to pick, removing them from the draft pool
-    unpick, u [player name]: fuzzy finds players and asks which player to unpick, adding them back to the draft pool
+    pick, p [player id]: removes player from draft pool
+    unpick, u [player id]: adds player back to draft pool
     floor: print the highest floor value for available players for each position
     ceil: print the highest ceiling value for available players for each position
     help, h: print this usage text
