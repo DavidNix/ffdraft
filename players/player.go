@@ -59,7 +59,12 @@ type Player struct {
 }
 
 func (p Player) Row() []string {
+    if p.ID == 0 {
+		b := ""
+		return []string{b,b,b,b,b,b,b,b,b,b,b,b,b,b}
+	}
 	return []string{
+		fmt.Sprint(p.ID),
 		p.Name,
 		p.Position,
 		p.Team,
