@@ -2,6 +2,7 @@ package players
 
 import (
 	"fmt"
+	"strings"
 )
 
 const (
@@ -59,12 +60,11 @@ type Player struct {
 }
 
 func (p Player) Row() []string {
-    if p.ID == 0 {
+	if p.ID == 0 {
 		b := ""
-		return []string{b,b,b,b,b,b,b,b,b,b,b,b,b,b}
+		return []string{b, b, b, b, b, b, b, b, b, b, b, b, b}
 	}
 	return []string{
-		fmt.Sprint(p.ID),
 		p.Name,
 		p.Position,
 		p.Team,
@@ -79,4 +79,8 @@ func (p Player) Row() []string {
 		fmt.Sprint(p.TargetAuctionCost),
 		fmt.Sprint(p.Risk),
 	}
+}
+
+func (p Player) ShortDesc() string {
+	return strings.Join(p.Row()[:3], " ")
 }

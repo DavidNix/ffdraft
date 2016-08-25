@@ -10,20 +10,20 @@ func (r *Repo) Floor() []Player {
 }
 
 func (r *Repo) Ceil() []Player {
-    ceil := func(p1, p2 Player) bool {
-        return p1.Ceil > p2.Ceil
-    }
-    return r.group(ceil, 3)
+	ceil := func(p1, p2 Player) bool {
+		return p1.Ceil > p2.Ceil
+	}
+	return r.group(ceil, 3)
 }
 
 func (r *Repo) Team(name string) []Player {
-    floor := func(p1, p2 Player) bool {
-        return p1.Floor > p2.Floor
-    }
-    grouped := r.group(floor, 1000)
-    return filter(grouped, func(p Player) bool {
-        return strings.ToUpper(name) == strings.ToUpper(p.Team) || p.Team == ""
-    })
+	floor := func(p1, p2 Player) bool {
+		return p1.Floor > p2.Floor
+	}
+	grouped := r.group(floor, 1000)
+	return filter(grouped, func(p Player) bool {
+		return strings.ToUpper(name) == strings.ToUpper(p.Team) || p.Team == ""
+	})
 }
 
 func (r *Repo) group(sortFunc By, max int) []Player {
