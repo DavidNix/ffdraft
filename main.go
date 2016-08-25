@@ -42,7 +42,7 @@ func main() {
 
 Loop:
 	for {
-		input := strings.Fields(command.GetInput())
+		input := strings.Fields(command.GetInput('\n'))
 		var cmd string
 		var args []string
 		if len(input) > 0 {
@@ -55,7 +55,7 @@ Loop:
 			command.Find(repo, args)
 
 		case "pick", "p":
-			fmt.Println("pick from a list of players")
+			command.Pick(repo, args)
 
 		case "unpick", "u":
 			fmt.Println("unpick from a list of players")
@@ -64,7 +64,7 @@ Loop:
 			command.Floor(repo)
 
 		case "ceil":
-            command.Ceil(repo)
+			command.Ceil(repo)
 
 		case "team":
 			command.Team(repo, args)

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-var headers = []string{"ID", "Name", "Pos", "Team", "ECR", "Rank", "Pos Rank", "VOR", "Dropoff", "Floor", "Ceil", "AAV", "Cost", "Risk"}
+var headers = []string{"Name", "Pos", "Team", "ECR", "Rank", "Pos Rank", "VOR", "Dropoff", "Floor", "Ceil", "AAV", "Cost", "Risk"}
 
 type Rows []players.Player
 

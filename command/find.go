@@ -6,6 +6,6 @@ import (
 )
 
 func Find(repo *players.Repo, args []string) {
-	rows := repo.Find(strings.Join(args, " "))
+	rows := repo.FindAll(strings.Join(args, " "))
 	PrintTable(rows)
 }

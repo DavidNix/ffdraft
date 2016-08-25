@@ -8,10 +8,10 @@ import (
 	"strings"
 )
 
-func GetInput() string {
+func GetInput(delim byte) string {
 	fmt.Print("> ")
 	in := bufio.NewReader(os.Stdin)
-	line, err := in.ReadString('\n')
+	line, err := in.ReadString(delim)
 	if err != nil {
 		log.Fatal("unable to read input:", err)
 	}

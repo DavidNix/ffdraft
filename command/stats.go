@@ -12,8 +12,8 @@ func Floor(repo *players.Repo) {
 }
 
 func Ceil(repo *players.Repo) {
-    fmt.Println("CEILING:")
-    PrintTable(repo.Ceil())
+	fmt.Println("CEILING:")
+	PrintTable(repo.Ceil())
 }
 
 func Team(repo *players.Repo, args []string) {
