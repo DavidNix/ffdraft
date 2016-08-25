@@ -66,6 +66,9 @@ Loop:
 		case "ceil":
             command.Ceil(repo)
 
+		case "team":
+			command.Team(repo, args)
+
 		case "help", "h", "usage":
 			fmt.Println(usage)
 
