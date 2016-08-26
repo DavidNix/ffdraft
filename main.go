@@ -58,7 +58,7 @@ Loop:
 			command.Pick(repo, args)
 
 		case "unpick", "u":
-			fmt.Println("unpick from a list of players")
+            command.UnPick(repo, args)
 
 		case "floor", "fl":
 			command.Floor(repo)
