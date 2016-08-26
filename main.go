@@ -8,6 +8,7 @@ import (
 	"log"
 	"strings"
 	"time"
+	"flag"
 )
 
 const usage = `
@@ -23,19 +24,30 @@ Commands:
 *By default, this program always prints the result of the floor command after every command.
 --------------------------------------------------------------------------------------------------------------------
 `
+var api = flag.Bool("api", false, "fetch data from api")
 
 func main() {
 	fmt.Println("Welcome to fantasy football!")
 	fmt.Println(usage)
-	fmt.Println("Fetching current player data...")
 
-	s := startSpinner()
-	//undrafted, err := players.Load()
-	undrafted, err := players.LoadFromFile("./test/ff_response_fixture.json")
+    var undrafted []players.Player
+    var err error
+
+    s := startSpinner()
+    flag.Parse()
+    if *api {
+        fmt.Println("Fetching current player data...")
+        undrafted, err = players.Load()
+    } else {
+        undrafted, err = players.LoadFromFile("./test/ff_response_fixture.json")
+    }
 	s.Stop()
+
 	if err != nil {
 		log.Fatal("unable to fetch player data:", err)
+        return
 	}
+
 	repo := players.NewRepo(undrafted)
 	fmt.Println("Loaded", len(repo.UnDrafted), "offensive players")
 	command.Floor(repo)
