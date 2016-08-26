@@ -8,6 +8,8 @@ import (
 	"errors"
 )
 
+var invalidErr = errors.New("Invalid choice. No player selected.")
+
 func Pick(r *players.Repo, args []string) {
 	name := strings.Join(args, " ")
 
@@ -47,11 +49,11 @@ func choose(choices []players.Player) (players.Player, error) {
 	fmt.Print("Choose player:")
 	selection, err := strconv.ParseInt(GetInput('\n'), 0, 0)
 	if err != nil {
-		return players.Player{}, err
+		return players.Player{}, invalidErr
 	}
 	index := int(selection - 1)
 	if index < 0 || index >= len(choices) {
-		return players.Player{}, errors.New("Invalid choice. No player selected.")
+		return players.Player{}, invalidErr
 	}
 	return choices[index], nil
 }
