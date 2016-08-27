@@ -71,13 +71,13 @@ func (p Player) Row() []string {
 		fmt.Sprint(p.ECR),
 		fmt.Sprint(p.OverallRank),
 		fmt.Sprint(p.PositionRank),
-		fmt.Sprint(p.VOR),
-		fmt.Sprint(p.Dropoff),
-		fmt.Sprint(p.Floor),
-		fmt.Sprint(p.Ceil),
-		fmt.Sprint(p.AAV),
-		fmt.Sprint(p.TargetAuctionCost),
-		fmt.Sprint(p.Risk),
+		fmt.Sprintf("%.2f", p.VOR),
+		fmt.Sprintf("%.2f", p.Dropoff),
+		fmt.Sprintf("%.2f", p.Floor),
+		fmt.Sprintf("%.2f", p.Ceil),
+		fmt.Sprintf("$ %.2f", p.AAV),
+		fmt.Sprintf("$ %2.0f", p.TargetAuctionCost),
+		fmt.Sprintf("%.2f", p.Risk),
 	}
 }
 
