@@ -6,7 +6,7 @@ func (r *Repo) Floor() []Player {
 	floor := func(p1, p2 Player) bool {
 		return p1.Floor > p2.Floor
 	}
-	return r.group(floor, 3)
+	return r.group(floor, 5)
 }
 
 func (r *Repo) FloorByPos(pos string) []Player {
@@ -24,7 +24,7 @@ func (r *Repo) Ceil() []Player {
 	ceil := func(p1, p2 Player) bool {
 		return p1.Ceil > p2.Ceil
 	}
-	return r.group(ceil, 3)
+	return r.group(ceil, 5)
 }
 
 func (r *Repo) CeilByPos(pos string) []Player {
