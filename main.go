@@ -52,6 +52,18 @@ func main() {
 	fmt.Println("Loaded", len(repo.UnDrafted), "offensive players")
 	command.Floor(repo, []string{})
 
+	startInteractive(repo)
+
+	fmt.Println("Program exited")
+}
+
+func startInteractive(repo *players.Repo) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("Recovered from fatal error:", err)
+            startInteractive(repo)
+		}
+	}()
 Loop:
 	for {
 		input := strings.Fields(command.GetInput('\n'))
@@ -70,7 +82,7 @@ Loop:
 			command.Pick(repo, args)
 
 		case "unpick", "u":
-            command.UnPick(repo, args)
+			command.UnPick(repo, args)
 
 		case "floor", "fl":
 			command.Floor(repo, args)
@@ -88,14 +100,12 @@ Loop:
 			break Loop
 
 		case "":
-			break
+            continue
 
 		default:
 			fmt.Println("Unrecognized command \"" + cmd + "\". Type help for usage.")
 		}
 	}
-
-	fmt.Println("Program exited")
 }
 
 func startSpinner() *spinner.Spinner {
