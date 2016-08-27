@@ -1,12 +1,12 @@
 package players
 
 import (
-	"strings"
-	"io/ioutil"
 	"encoding/json"
 	"errors"
-	"net/http"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
 )
 
 const CacheLocation = "./cached_players.json"

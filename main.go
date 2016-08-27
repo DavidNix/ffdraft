@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/briandowns/spinner"
 	"github.com/davidnix/ffdraft/command"
@@ -8,7 +9,6 @@ import (
 	"log"
 	"strings"
 	"time"
-	"flag"
 )
 
 const usage = `
@@ -24,28 +24,29 @@ Commands:
 *By default, this program always prints the result of the floor command after every command.
 --------------------------------------------------------------------------------------------------------------------
 `
+
 var api = flag.Bool("api", false, "fetch data from api")
 
 func main() {
 	fmt.Println("Welcome to fantasy football!")
 	fmt.Println(usage)
 
-    var undrafted []players.Player
-    var err error
+	var undrafted []players.Player
+	var err error
 
-    s := startSpinner()
-    flag.Parse()
-    if *api {
-        fmt.Println("Fetching current player data...")
-        undrafted, err = players.Load()
-    } else {
-        undrafted, err = players.LoadFromFile(players.CacheLocation)
-    }
+	s := startSpinner()
+	flag.Parse()
+	if *api {
+		fmt.Println("Fetching current player data...")
+		undrafted, err = players.Load()
+	} else {
+		undrafted, err = players.LoadFromFile(players.CacheLocation)
+	}
 	s.Stop()
 
 	if err != nil {
 		log.Fatal("unable to fetch player data:", err)
-        return
+		return
 	}
 
 	repo := players.NewRepo(undrafted)
@@ -61,7 +62,7 @@ func startInteractive(repo *players.Repo) {
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println("Recovered from fatal error:", err)
-            startInteractive(repo)
+			startInteractive(repo)
 		}
 	}()
 Loop:
@@ -100,7 +101,7 @@ Loop:
 			break Loop
 
 		case "":
-            continue
+			continue
 
 		default:
 			fmt.Println("Unrecognized command \"" + cmd + "\". Type help for usage.")

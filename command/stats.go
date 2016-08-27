@@ -9,7 +9,7 @@ import (
 func Floor(repo *players.Repo, args []string) {
 	fmt.Println("FLOOR:")
 	if len(args) > 0 {
-        pos := strings.Join(args, "")
+		pos := strings.Join(args, "")
 		PrintTable(repo.FloorByPos(pos))
 	} else {
 		PrintTable(repo.Floor())
@@ -18,7 +18,7 @@ func Floor(repo *players.Repo, args []string) {
 
 func Ceil(repo *players.Repo, args []string) {
 	fmt.Println("CEILING:")
-    if len(args) > 0 {
+	if len(args) > 0 {
 		pos := strings.Join(args, "")
 		PrintTable(repo.CeilByPos(pos))
 	} else {

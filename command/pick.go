@@ -1,11 +1,11 @@
 package command
 
 import (
+	"errors"
 	"fmt"
 	"github.com/davidnix/ffdraft/players"
 	"strconv"
 	"strings"
-	"errors"
 )
 
 var invalidErr = errors.New("Invalid choice. No player selected.")
@@ -43,7 +43,7 @@ func UnPick(r *players.Repo, args []string) {
 
 func choose(choices []players.Player) (players.Player, error) {
 	for i, p := range choices {
-		fmt.Printf("%v: %s", i+1, p.ShortDesc() + "\n")
+		fmt.Printf("%v: %s", i+1, p.ShortDesc()+"\n")
 	}
 
 	fmt.Print("Choose player:")

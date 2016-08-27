@@ -10,14 +10,14 @@ func (r *Repo) Floor() []Player {
 }
 
 func (r *Repo) FloorByPos(pos string) []Player {
-    plyrs := filter(r.UnDrafted, func (p Player) bool {
-        return strings.ToUpper(pos) == strings.ToUpper(p.Position)
-    })
-    floor := func(p1, p2 Player) bool {
-        return p1.Floor > p2.Floor
-    }
-    By(floor).Sort(plyrs)
-    return plyrs[:min(30, len(plyrs))]
+	plyrs := filter(r.UnDrafted, func(p Player) bool {
+		return strings.ToUpper(pos) == strings.ToUpper(p.Position)
+	})
+	floor := func(p1, p2 Player) bool {
+		return p1.Floor > p2.Floor
+	}
+	By(floor).Sort(plyrs)
+	return plyrs[:min(30, len(plyrs))]
 }
 
 func (r *Repo) Ceil() []Player {
@@ -28,14 +28,14 @@ func (r *Repo) Ceil() []Player {
 }
 
 func (r *Repo) CeilByPos(pos string) []Player {
-    plyrs := filter(r.UnDrafted, func (p Player) bool {
-        return strings.ToUpper(pos) == strings.ToUpper(p.Position)
-    })
-    ceil := func(p1, p2 Player) bool {
-        return p1.Ceil > p2.Ceil
-    }
-    By(ceil).Sort(plyrs)
-    return plyrs[:min(30, len(plyrs))]
+	plyrs := filter(r.UnDrafted, func(p Player) bool {
+		return strings.ToUpper(pos) == strings.ToUpper(p.Position)
+	})
+	ceil := func(p1, p2 Player) bool {
+		return p1.Ceil > p2.Ceil
+	}
+	By(ceil).Sort(plyrs)
+	return plyrs[:min(30, len(plyrs))]
 }
 
 func (r *Repo) Team(name string) []Player {
