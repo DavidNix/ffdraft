@@ -39,7 +39,7 @@ func main() {
         fmt.Println("Fetching current player data...")
         undrafted, err = players.Load()
     } else {
-        undrafted, err = players.LoadFromFile("./test/ff_response_fixture.json")
+        undrafted, err = players.LoadFromFile(players.CacheLocation)
     }
 	s.Stop()
 

@@ -1,12 +1,15 @@
 package players
 
 import (
+	"strings"
+	"io/ioutil"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"net/http"
-	"strings"
+	"fmt"
 )
+
+const CacheLocation = "./cached_players.json"
 
 // LoadPlayers gets data from http://fantasyfootballanalytics.net and also combines data from another source to
 // update player injury and suspension notes
@@ -26,6 +29,10 @@ func Load() ([]Player, error) {
 	var p Response
 	if err := json.Unmarshal(data, &p); err != nil {
 		return nil, err
+	}
+
+	if fileErr := ioutil.WriteFile(CacheLocation, data, 0644); fileErr != nil {
+		fmt.Println("unable to cache response to disk")
 	}
 
 	players := p.Data.Players
