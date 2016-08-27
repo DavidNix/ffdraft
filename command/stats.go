@@ -6,14 +6,24 @@ import (
 	"strings"
 )
 
-func Floor(repo *players.Repo) {
+func Floor(repo *players.Repo, args []string) {
 	fmt.Println("FLOOR:")
-	PrintTable(repo.Floor())
+	if len(args) > 0 {
+        pos := strings.Join(args, "")
+		PrintTable(repo.FloorByPos(pos))
+	} else {
+		PrintTable(repo.Floor())
+	}
 }
 
-func Ceil(repo *players.Repo) {
+func Ceil(repo *players.Repo, args []string) {
 	fmt.Println("CEILING:")
-	PrintTable(repo.Ceil())
+    if len(args) > 0 {
+		pos := strings.Join(args, "")
+		PrintTable(repo.CeilByPos(pos))
+	} else {
+		PrintTable(repo.Ceil())
+	}
 }
 
 func Team(repo *players.Repo, args []string) {

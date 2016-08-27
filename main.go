@@ -50,13 +50,13 @@ func main() {
 
 	repo := players.NewRepo(undrafted)
 	fmt.Println("Loaded", len(repo.UnDrafted), "offensive players")
-	command.Floor(repo)
+	command.Floor(repo, []string{})
 
 Loop:
 	for {
 		input := strings.Fields(command.GetInput('\n'))
 		var cmd string
-		var args []string
+		args := []string{}
 		if len(input) > 0 {
 			cmd = input[0]
 			args = input[1:]
@@ -73,10 +73,10 @@ Loop:
             command.UnPick(repo, args)
 
 		case "floor", "fl":
-			command.Floor(repo)
+			command.Floor(repo, args)
 
 		case "ceil":
-			command.Ceil(repo)
+			command.Ceil(repo, args)
 
 		case "team":
 			command.Team(repo, args)
