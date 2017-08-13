@@ -1,9 +1,10 @@
 package command
 
 import (
+	"os"
+
 	"github.com/davidnix/ffdraft/players"
 	"github.com/olekukonko/tablewriter"
-	"os"
 )
 
 var headers = []string{"Name", "Pos", "Team", "ECR", "Rank", "Pos Rank", "VOR", "Dropoff", "Floor", "Ceil", "AAV", "Cost", "Risk"}

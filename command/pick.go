@@ -3,9 +3,10 @@ package command
 import (
 	"errors"
 	"fmt"
-	"github.com/davidnix/ffdraft/players"
 	"strconv"
 	"strings"
+
+	"github.com/davidnix/ffdraft/players"
 )
 
 var invalidErr = errors.New("Invalid choice. No player selected.")

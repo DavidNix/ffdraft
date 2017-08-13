@@ -3,7 +3,6 @@ package players
 import (
 	"fmt"
 	"strings"
-	"reflect"
 )
 
 const (

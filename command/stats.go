@@ -2,8 +2,9 @@ package command
 
 import (
 	"fmt"
-	"github.com/davidnix/ffdraft/players"
 	"strings"
+
+	"github.com/davidnix/ffdraft/players"
 )
 
 func Floor(repo *players.Repo, args []string) {

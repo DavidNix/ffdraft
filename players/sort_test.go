@@ -1,8 +1,9 @@
 package players
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestBy_Sort(t *testing.T) {

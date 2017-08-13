@@ -3,12 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/briandowns/spinner"
-	"github.com/davidnix/ffdraft/command"
-	"github.com/davidnix/ffdraft/players"
 	"log"
 	"strings"
 	"time"
+
+	"github.com/briandowns/spinner"
+	"github.com/davidnix/ffdraft/command"
+	"github.com/davidnix/ffdraft/players"
 )
 
 const usage = `

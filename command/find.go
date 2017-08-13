@@ -1,8 +1,9 @@
 package command
 
 import (
-	"github.com/davidnix/ffdraft/players"
 	"strings"
+
+	"github.com/davidnix/ffdraft/players"
 )
 
 func Find(repo *players.Repo, args []string) {
