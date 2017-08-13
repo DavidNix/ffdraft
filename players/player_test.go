@@ -6,7 +6,7 @@ import (
 )
 
 func TestUnmarshal(t *testing.T) {
-	players, err := LoadFromFile("../test/ff_response_fixture.json")
+	players, err := LoadFromCSV("../test/ff_response_fixture.json")
 	assert.NoError(t, err)
 
 	assert.True(t, len(players) > 0)

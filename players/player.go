@@ -3,6 +3,7 @@ package players
 import (
 	"fmt"
 	"strings"
+	"reflect"
 )
 
 const (
@@ -33,7 +34,7 @@ func Positions() map[string]bool {
 	return pos
 }
 
-// Response from fantasyfootballanalytics.net in format Data.pointsTable -> array of players
+// TODO: change me
 type Response struct {
 	Data struct {
 		Players []Player `json:"pointsTable"`
@@ -60,10 +61,6 @@ type Player struct {
 }
 
 func (p Player) Row() []string {
-	if p.ID == 0 {
-		b := ""
-		return []string{b, b, b, b, b, b, b, b, b, b, b, b, b}
-	}
 	return []string{
 		p.Name,
 		p.Position,

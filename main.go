@@ -38,9 +38,9 @@ func main() {
 	flag.Parse()
 	if *api {
 		fmt.Println("Fetching current player data...")
-		undrafted, err = players.Load()
+		undrafted, err = players.LoadCSV()
 	} else {
-		undrafted, err = players.LoadFromFile(players.CacheLocation)
+		undrafted, err = players.LoadFromCSV(players.CacheLocation)
 	}
 	s.Stop()
 
