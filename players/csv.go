@@ -2,26 +2,17 @@ package players
 
 import (
 	"encoding/json"
-	"errors"
-	"fmt"
 	"io/ioutil"
-	"net/http"
-	"strings"
 )
 
-const CacheLocation = "./cached_players.json"
+const cacheLocation = "./cached_players.json"
 
-// PreprocessCSV pre-processes a csv manually downloaded from http://apps.fantasyfootballanalytics.net/lineupoptimizer/.
+// LoadFromCSV pre-processes a csv manually downloaded from http://apps.fantasyfootballanalytics.net/lineupoptimizer/.
 // Login and use the download button to get the csv. Unfortunately, there lacks an easy way to make a request to get the data
 // IMPORTANT: You want the custom rankings (not the raw).
 // This function take the csv and transforms it into a parseable json file
-func PreprocessCSV(path string) error {
-
-	return nil
-}
-
 func LoadFromCSV(path string) ([]Player, error) {
-	data, err := ioutil.ReadFile(path)
+	data, err := ioutil.ReadFile(cacheLocation)
 	if err != nil {
 		return nil, err
 	}

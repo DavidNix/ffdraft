@@ -26,7 +26,7 @@ Commands:
 --------------------------------------------------------------------------------------------------------------------
 `
 
-var api = flag.Bool("api", false, "fetch data from api")
+var csvPath string
 
 func main() {
 	fmt.Println("Welcome to fantasy football!")
@@ -41,7 +41,7 @@ func main() {
 		fmt.Println("Fetching current player data...")
 		undrafted, err = players.LoadCSV()
 	} else {
-		undrafted, err = players.LoadFromCSV(players.CacheLocation)
+		undrafted, err = players.LoadFromCSV(players.cacheLocation)
 	}
 	s.Stop()
 
