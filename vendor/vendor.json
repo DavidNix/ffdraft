@@ -177,6 +177,12 @@
 			"revisionTime": "2017-07-19T10:10:40Z"
 		},
 		{
+			"checksumSHA1": "RmL9wD49aRz+vCugwed0ccVTMeY=",
+			"path": "github.com/pkg/errors",
+			"revision": "c605e284fe17294bda444b34710735b29d1a9d90",
+			"revisionTime": "2017-05-05T04:36:39Z"
+		},
+		{
 			"checksumSHA1": "UZTShNjyMzc3KC2q8kWc9RXe/dY=",
 			"path": "golang.org/x/sys/unix",
 			"revision": "43e60d72a8e2bd92ee98319ba9a384a0e9837c08",
