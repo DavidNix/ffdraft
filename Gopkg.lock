@@ -14,12 +14,6 @@
   version = "v1.1.0"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/davidnix/ffdraft"
-  packages = ["command","players"]
-  revision = "318df5a68595b939c9880d25ac02a7c37e893644"
-
-[[projects]]
   name = "github.com/fatih/color"
   packages = ["."]
   revision = "570b54cabe6b8eb0bc2dfce68d964677d63b5260"
@@ -62,12 +56,6 @@
   version = "v1.0.0"
 
 [[projects]]
-  name = "github.com/stretchr/testify"
-  packages = ["assert"]
-  revision = "69483b4bd14f5845b5a1e55bca19e954e827f1d0"
-  version = "v1.1.4"
-
-[[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
@@ -76,6 +64,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5daaf2f503020b15416383118b1fc080fd3e94a7b42a5b48a7643dbfe1dfae46"
+  inputs-digest = "4c6e5d431925d1234e3d6b5cb524bb54a59866b8fcdd6252dbbd6082f18e4f36"
   solver-name = "gps-cdcl"
   solver-version = 1
