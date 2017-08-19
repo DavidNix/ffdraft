@@ -1,0 +1,187 @@
+{
+	"comment": "",
+	"ignore": "",
+	"package": [
+		{
+			"checksumSHA1": "IZLh2U73thwE6b8tSPS1peY+rPE=",
+			"path": "github.com/briandowns/spinner",
+			"revision": "48dbb65d7bd5c74ab50d53d04c949f20e3d14944",
+			"revisionTime": "2017-06-14T15:48:58Z"
+		},
+		{
+			"checksumSHA1": "2l56at/NQpwsVlxSmLQYUz8tKjs=",
+			"path": "github.com/cznic/cc",
+			"revision": "b98d4a758e7bcca3eabdbc1ae0139db6e52252ab",
+			"revisionTime": "2017-07-22T16:19:11Z"
+		},
+		{
+			"checksumSHA1": "9JBLeJtY7RDBQSUCFeKYOJyViPE=",
+			"path": "github.com/cznic/golex/lex",
+			"revision": "4ab7c5e190e49208c823ce8ec803aa39e6a4b31a",
+			"revisionTime": "2017-08-03T12:31:10Z"
+		},
+		{
+			"checksumSHA1": "/6kjQyZfqGgr2a+ulyTnwJK+un4=",
+			"path": "github.com/cznic/mathutil",
+			"revision": "6baf61e0317058e3207936f50e310bd500fbbdb0",
+			"revisionTime": "2017-06-21T18:10:44Z"
+		},
+		{
+			"checksumSHA1": "VIdyKZolM6HZieFIAj5a1fThw/k=",
+			"path": "github.com/cznic/strutil",
+			"revision": "43a89592ed56c227c7fdb1fcaf7d1d08be02ec54",
+			"revisionTime": "2017-01-31T12:30:52Z"
+		},
+		{
+			"checksumSHA1": "hDyz5+2Tdk9GqlZyT4yBRJLx/Go=",
+			"path": "github.com/cznic/xc",
+			"revision": "056465bb2be50ec239d754187e1cccbe1b940aa6",
+			"revisionTime": "2017-01-10T18:14:16Z"
+		},
+		{
+			"checksumSHA1": "WMUP4VgPrVa8NIev3Q4zndVp0zc=",
+			"path": "github.com/fatih/color",
+			"revision": "67c513e5729f918f5e69786686770c27141a4490",
+			"revisionTime": "2017-08-04T15:04:06Z"
+		},
+		{
+			"checksumSHA1": "KVt9/6onCll5wMFzWmgENmILlyM=",
+			"path": "github.com/gonum/blas",
+			"revision": "37e82626499e1df7c54aeaba0959fd6e7e8dc1e4",
+			"revisionTime": "2017-07-28T07:13:23Z"
+		},
+		{
+			"checksumSHA1": "Hc4+U8HpN0345fLzyzrxlqYBBMs=",
+			"path": "github.com/gonum/blas/blas64",
+			"revision": "37e82626499e1df7c54aeaba0959fd6e7e8dc1e4",
+			"revisionTime": "2017-07-28T07:13:23Z"
+		},
+		{
+			"checksumSHA1": "juiA1D6JC8KuDPNQX6tBwz2TEFc=",
+			"path": "github.com/gonum/blas/cgo",
+			"revision": "37e82626499e1df7c54aeaba0959fd6e7e8dc1e4",
+			"revisionTime": "2017-07-28T07:13:23Z"
+		},
+		{
+			"checksumSHA1": "ZKkuAuZPWYlnbVL02puEgKzgE8U=",
+			"path": "github.com/gonum/blas/native",
+			"revision": "37e82626499e1df7c54aeaba0959fd6e7e8dc1e4",
+			"revisionTime": "2017-07-28T07:13:23Z"
+		},
+		{
+			"checksumSHA1": "G38pVizJZDjDR7mSVpuQKMoCm9Q=",
+			"path": "github.com/gonum/blas/native/internal/math32",
+			"revision": "37e82626499e1df7c54aeaba0959fd6e7e8dc1e4",
+			"revisionTime": "2017-07-28T07:13:23Z"
+		},
+		{
+			"checksumSHA1": "IznEahl7oPLPFaU4CFS3EgoylDo=",
+			"path": "github.com/gonum/blas/testblas",
+			"revision": "37e82626499e1df7c54aeaba0959fd6e7e8dc1e4",
+			"revisionTime": "2017-07-28T07:13:23Z"
+		},
+		{
+			"checksumSHA1": "hAx70O5awzlW/FkxbJpFzEA6OWE=",
+			"path": "github.com/gonum/floats",
+			"revision": "f74b330d45c56584a6ea7a27f5c64ea2900631e9",
+			"revisionTime": "2017-07-31T00:32:11Z"
+		},
+		{
+			"checksumSHA1": "XPylqBJx+vm7+mHVv7KuWvWZ9Pg=",
+			"path": "github.com/gonum/internal/asm/f32",
+			"revision": "e57e4534cf9b3b00ef6c0175f59d8d2d34f60914",
+			"revisionTime": "2017-07-31T00:35:38Z"
+		},
+		{
+			"checksumSHA1": "9SAz2iRmFwT0vXf41+EWvIMbmJM=",
+			"path": "github.com/gonum/internal/asm/f64",
+			"revision": "e57e4534cf9b3b00ef6c0175f59d8d2d34f60914",
+			"revisionTime": "2017-07-31T00:35:38Z"
+		},
+		{
+			"checksumSHA1": "k3Uycbcb0jOM32AD/7cJA31jIXM=",
+			"path": "github.com/gonum/internal/binding",
+			"revision": "e57e4534cf9b3b00ef6c0175f59d8d2d34f60914",
+			"revisionTime": "2017-07-31T00:35:38Z"
+		},
+		{
+			"checksumSHA1": "yLyS+zzxE6PiwegobVVffh+zcL4=",
+			"path": "github.com/gonum/lapack",
+			"revision": "5ed4b826becd1807e09377508f51756586d1a98c",
+			"revisionTime": "2017-07-31T00:36:51Z"
+		},
+		{
+			"checksumSHA1": "spB0w4NXAqaMj2c7S7oMmPWyWk8=",
+			"path": "github.com/gonum/lapack/lapack64",
+			"revision": "5ed4b826becd1807e09377508f51756586d1a98c",
+			"revisionTime": "2017-07-31T00:36:51Z"
+		},
+		{
+			"checksumSHA1": "Y3hsz2AAesWy5W4lauveK+OBUHY=",
+			"path": "github.com/gonum/lapack/native",
+			"revision": "5ed4b826becd1807e09377508f51756586d1a98c",
+			"revisionTime": "2017-07-31T00:36:51Z"
+		},
+		{
+			"checksumSHA1": "xHrhC1ZWuPAeb2qf2et/DT3u6f0=",
+			"path": "github.com/gonum/lapack/testlapack",
+			"revision": "5ed4b826becd1807e09377508f51756586d1a98c",
+			"revisionTime": "2017-07-31T00:36:51Z"
+		},
+		{
+			"checksumSHA1": "qJopjniM0fewkY/9++qZQ3C9fwo=",
+			"path": "github.com/gonum/matrix",
+			"revision": "dd6034299e4242c9f0ea36735e6d4264dfcb3f9f",
+			"revisionTime": "2017-07-31T00:40:40Z"
+		},
+		{
+			"checksumSHA1": "TBCFnSUsCD4A+VB0MYRN6JzYBk0=",
+			"path": "github.com/gonum/matrix/mat64",
+			"revision": "dd6034299e4242c9f0ea36735e6d4264dfcb3f9f",
+			"revisionTime": "2017-07-31T00:40:40Z"
+		},
+		{
+			"checksumSHA1": "vHcklTLHT0qX7yoiqzgM5qJkSzE=",
+			"path": "github.com/kniren/gota/dataframe",
+			"revision": "531ec7b7d82e2a7b7355b63011197a29d401aba6",
+			"revisionTime": "2016-12-12T14:48:35Z"
+		},
+		{
+			"checksumSHA1": "8+vdv+5YOHNCrFtrjoaXy2Hl/6I=",
+			"path": "github.com/kniren/gota/series",
+			"revision": "531ec7b7d82e2a7b7355b63011197a29d401aba6",
+			"revisionTime": "2016-12-12T14:48:35Z"
+		},
+		{
+			"checksumSHA1": "7HZc0BsNvOgzXTinTpPwdIS3jGc=",
+			"path": "github.com/mattn/go-colorable",
+			"revision": "ad5389df28cdac544c99bd7b9161a0b5b6ca9d1b",
+			"revisionTime": "2017-08-16T03:18:13Z"
+		},
+		{
+			"checksumSHA1": "cAY8WWlvwXakO9nUpQbqNW13JkI=",
+			"path": "github.com/mattn/go-isatty",
+			"revision": "fc9e8d8ef48496124e79ae0df75490096eccf6fe",
+			"revisionTime": "2017-03-22T23:44:13Z"
+		},
+		{
+			"checksumSHA1": "AZNkWnsE0Uq3YUqPqxRP1W1kuVg=",
+			"path": "github.com/mattn/go-runewidth",
+			"revision": "97311d9f7767e3d6f422ea06661bc2c7a19e8a5d",
+			"revisionTime": "2017-05-10T07:48:58Z"
+		},
+		{
+			"checksumSHA1": "KNvBmmiXicGiV32jOEyNwg2B4L8=",
+			"path": "github.com/olekukonko/tablewriter",
+			"revision": "be5337e7b39e64e5f91445ce7e721888dbab7387",
+			"revisionTime": "2017-07-19T10:10:40Z"
+		},
+		{
+			"checksumSHA1": "UZTShNjyMzc3KC2q8kWc9RXe/dY=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "43e60d72a8e2bd92ee98319ba9a384a0e9837c08",
+			"revisionTime": "2017-08-16T15:16:36Z"
+		}
+	],
+	"rootPath": "github.com/davidnix/ffdraft"
+}
