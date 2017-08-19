@@ -2,6 +2,8 @@ package players
 
 import (
 	"fmt"
+	"math"
+	"reflect"
 	"strings"
 )
 
@@ -33,48 +35,57 @@ func Positions() map[string]bool {
 	return pos
 }
 
-// TODO: change me
-type Response struct {
-	Data struct {
-		Players []Player `json:"pointsTable"`
-	} `json:"Data"`
-}
+type currency float64
 
 // Player of any type
 type Player struct {
-	ID                int     `json:"playerId"`
-	Name              string  `json:"playername"`
-	Position          string  `json:"position"`
-	Team              string  `json:"team"`
-	VOR               float64 `json:"vor"`
-	Points            float64 `json:"points"`
-	ECR               float64 `json:"overallECR"`
-	OverallRank       float64 `json:"overallRank"`
-	PositionRank      float64 `json:"positionRank"`
-	TargetAuctionCost float64 `json:"cost"`
-	Dropoff           float64 `json:"dropoff"`
-	AAV               float64 `json:"auctionValue"`
-	Ceil              float64 `json:"upper"`
-	Floor             float64 `json:"lower"`
-	Risk              float64 `json:"risk"`
+	ID                int      `json:"playerId"`
+	Name              string   `json:"player"`
+	Position          string   `json:"playerposition"`
+	Team              string   `json:"team"`
+	Age               int      `json:"age"`
+	Exp               int      `json:"exp"`
+	ByeWeek           int      `json:"bye"`
+	ECR               float64  `json:"overallECR"`
+	OverallRank       int      `json:"overallRank"`
+	PositionRank      int      `json:"positionRank"`
+	Tier              int      `json:"tier"`
+	Dropoff           float64  `json:"dropoff"`
+	VOR               float64  `json:"vor"`
+	Risk              float64  `json:"risk"`
+	ADP               float64  `json:"adp"`
+	TargetAuctionCost currency `json:"cost"`
+	AAV               currency `json:"auctionValue"`
+	Ceil              float64  `json:"upper"`
+	Floor             float64  `json:"lower"`
 }
 
 func (p Player) Row() []string {
-	return []string{
-		p.Name,
-		p.Position,
-		p.Team,
-		fmt.Sprint(p.ECR),
-		fmt.Sprint(p.OverallRank),
-		fmt.Sprint(p.PositionRank),
-		fmt.Sprintf("%.2f", p.VOR),
-		fmt.Sprintf("%.2f", p.Dropoff),
-		fmt.Sprintf("%.2f", p.Floor),
-		fmt.Sprintf("%.2f", p.Ceil),
-		fmt.Sprintf("$ %.2f", p.AAV),
-		fmt.Sprintf("$ %2.0f", p.TargetAuctionCost),
-		fmt.Sprintf("%.2f", p.Risk),
+	val := reflect.ValueOf(p)
+	row := make([]string, val.NumField())
+	for i := 0; i < val.NumField(); i++ {
+		var strVal string
+		switch v := val.Field(i).Interface().(type) {
+		case string:
+			strVal = v
+		case int:
+			strVal = fmt.Sprint(v)
+		case float64:
+			strVal = fmt.Sprintf("%.2f", v)
+		case currency:
+			c := float64(v)
+			if c/math.Trunc(c)-1 == 0 {
+				strVal = fmt.Sprintf("$ %2.0f", v)
+			} else {
+				strVal = fmt.Sprintf("$ %.2f", v)
+			}
+
+		default:
+			strVal = "<error>"
+		}
+		row[i] = strVal
 	}
+	return row
 }
 
 func (p Player) ShortDesc() string {
