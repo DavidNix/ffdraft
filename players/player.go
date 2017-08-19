@@ -54,16 +54,21 @@ type Player struct {
 	VOR               float64  `json:"vor"`
 	Risk              float64  `json:"risk"`
 	ADP               float64  `json:"adp"`
-	TargetAuctionCost currency `json:"cost"`
 	AAV               currency `json:"auctionValue"`
+	TargetAuctionCost currency `json:"cost"`
 	Ceil              float64  `json:"upper"`
 	Floor             float64  `json:"lower"`
 }
 
-func (p Player) Row() []string {
+func (p Player) Row() (row []string) {
 	val := reflect.ValueOf(p)
-	row := make([]string, val.NumField())
+	if p.ID == 0 {
+		return make([]string, val.NumField()-1)
+	}
 	for i := 0; i < val.NumField(); i++ {
+		if i == 0 {
+			continue // skip ID
+		}
 		var strVal string
 		switch v := val.Field(i).Interface().(type) {
 		case string:
@@ -83,7 +88,7 @@ func (p Player) Row() []string {
 		default:
 			strVal = "<error>"
 		}
-		row[i] = strVal
+		row = append(row, strVal)
 	}
 	return row
 }

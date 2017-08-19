@@ -29,26 +29,22 @@ Commands:
 var csvPath string
 
 func main() {
+	flag.StringVar(&csvPath, "csv", "", "PATH to csv data")
+
 	fmt.Println("Welcome to fantasy football!")
 	fmt.Println(usage)
 
-	var undrafted []players.Player
-	var err error
-
-	s := startSpinner()
 	flag.Parse()
-	if *api {
-		fmt.Println("Fetching current player data...")
-		undrafted, err = players.LoadCSV()
-	} else {
-		undrafted, err = players.LoadFromCSV(players.cacheLocation)
+
+	if csvPath == "" {
+		log.Fatal("missing csv path")
+	}
+	s := startSpinner()
+	undrafted, err := players.LoadFromCSV(csvPath)
+	if err != nil {
+		log.Fatal("unable to load csv:", err)
 	}
 	s.Stop()
-
-	if err != nil {
-		log.Fatal("unable to fetch player data:", err)
-		return
-	}
 
 	repo := players.NewRepo(undrafted)
 	fmt.Println("Loaded", len(repo.UnDrafted), "offensive players")

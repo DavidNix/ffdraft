@@ -7,7 +7,26 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
-var headers = []string{"Name", "Pos", "Team", "ECR", "Rank", "Pos Rank", "VOR", "Dropoff", "Floor", "Ceil", "AAV", "Cost", "Risk"}
+var headers = []string{
+	"Name",
+	"Pos",
+	"Team",
+	"Age",
+	"Exp",
+	"BYE",
+	"ECR",
+	"Rank",
+	"Pos Rank",
+	"Tier",
+	"Dropoff",
+	"VOR",
+	"Risk",
+	"ADP",
+	"AAV",
+	"Cost",
+	"Ceil",
+	"Floor",
+}
 
 type Rows []players.Player
 
