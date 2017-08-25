@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/davidnix/ffdraft/players"
+	"github.com/fatih/color"
 )
 
 var invalidErr = errors.New("Invalid choice. No player selected.")
@@ -24,7 +25,8 @@ func Pick(r *players.Repo, args []string) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(p.ShortDesc(), "was picked.", len(r.UnDrafted), "available players remaining.")
+	pDesc := color.CyanString(p.ShortDesc())
+	fmt.Println(pDesc, "was picked.", len(r.UnDrafted), "available players remaining.")
 }
 
 func UnPick(r *players.Repo, args []string) {
@@ -39,7 +41,8 @@ func UnPick(r *players.Repo, args []string) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(p.ShortDesc(), "is now available.", len(r.UnDrafted), "available players remaining.")
+	pDesc := color.GreenString(p.ShortDesc())
+	fmt.Println(pDesc, "is now available.", len(r.UnDrafted), "available players remaining.")
 }
 
 func choose(choices []players.Player) (players.Player, error) {
