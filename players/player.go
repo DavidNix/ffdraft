@@ -43,21 +43,21 @@ type Player struct {
 	Name              string   `json:"player"`
 	Position          string   `json:"playerposition"`
 	Team              string   `json:"team"`
+	Floor             float64  `json:"lower"`
+	Ceil              float64  `json:"upper"`
+	TargetAuctionCost currency `json:"cost"`
+	AAV               currency `json:"auctionValue"`
+	Dropoff           float64  `json:"dropoff"`
+	Tier              int      `json:"tier"`
 	Age               int      `json:"age"`
 	Exp               int      `json:"exp"`
 	ByeWeek           int      `json:"bye"`
 	ECR               float64  `json:"overallECR"`
+	ADP               float64  `json:"adp"`
 	OverallRank       int      `json:"overallRank"`
 	PositionRank      int      `json:"positionRank"`
-	Tier              int      `json:"tier"`
-	Dropoff           float64  `json:"dropoff"`
 	VOR               float64  `json:"vor"`
 	Risk              float64  `json:"risk"`
-	ADP               float64  `json:"adp"`
-	AAV               currency `json:"auctionValue"`
-	TargetAuctionCost currency `json:"cost"`
-	Ceil              float64  `json:"upper"`
-	Floor             float64  `json:"lower"`
 }
 
 func (p Player) Row() (row []string) {
