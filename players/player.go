@@ -41,7 +41,7 @@ type currency float64
 type Player struct {
 	ID                int      `json:"playerId"`
 	Name              string   `json:"player"`
-	Position          string   `json:"playerposition"`
+	Position          string   `json:"position"`
 	Team              string   `json:"team"`
 	Floor             float64  `json:"lower"`
 	Ceil              float64  `json:"upper"`
