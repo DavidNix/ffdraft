@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 	"time"
 
@@ -12,7 +13,11 @@ import (
 	"github.com/davidnix/ffdraft/players"
 )
 
-const usage = `
+const cmdUsage = `
+	ffdraft -csv PATH
+`
+
+const interactiveUsage = `
 --------------------------------------------------------------------------------------------------------------------
 Commands:
     find, f [player name]: fuzzy finds players matching player name
@@ -20,7 +25,7 @@ Commands:
     unpick, u [player id]: adds player back to draft pool
     floor: print the highest floor value for available players for each position
     ceil: print the highest ceiling value for available players for each position
-    help, h: print this usage text
+    help, h: print this interactiveUsage text
     exit: exits this program
 *By default, this program always prints the result of the floor command after every command.
 --------------------------------------------------------------------------------------------------------------------
@@ -30,15 +35,15 @@ var csvPath string
 
 func main() {
 	flag.StringVar(&csvPath, "csv", "", "PATH to csv data")
+	flag.Parse()
+	if csvPath == "" {
+		fmt.Printf("Error: missing csv path\n\nUsage:%s", cmdUsage)
+		os.Exit(1)
+	}
 
 	fmt.Println("Welcome to fantasy football!")
-	fmt.Println(usage)
+	fmt.Println(interactiveUsage)
 
-	flag.Parse()
-
-	if csvPath == "" {
-		log.Fatal("missing csv path")
-	}
 	s := startSpinner()
 	undrafted, err := players.LoadFromCSV(csvPath)
 	if err != nil {
@@ -92,7 +97,7 @@ Loop:
 			command.Team(repo, args)
 
 		case "help", "h", "usage":
-			fmt.Println(usage)
+			fmt.Println(interactiveUsage)
 
 		case "exit":
 			break Loop
