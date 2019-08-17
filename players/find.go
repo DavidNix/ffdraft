@@ -1,6 +1,6 @@
 package players
 
-import "github.com/renstrom/fuzzysearch/fuzzy"
+import "github.com/lithammer/fuzzysearch/fuzzy"
 
 func (r *Repo) FindAll(name string) []Player {
 	all := []Player{}
