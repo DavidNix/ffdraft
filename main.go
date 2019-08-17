@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/signal"
 	"strings"
 	"time"
 
@@ -60,7 +61,18 @@ func main() {
 	fmt.Println("Program exited")
 }
 
+func preventSigTerm() {
+	ch := make(chan os.Signal)
+	signal.Notify(ch, os.Interrupt)
+	go func() {
+		for _ = range ch {
+			fmt.Println("Interrupt caught: ignoring. Use `exit` or ctl+D")
+		}
+	}()
+}
+
 func startInteractive(repo *players.Repo) {
+	preventSigTerm()
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println("Recovered from fatal error:", err)
