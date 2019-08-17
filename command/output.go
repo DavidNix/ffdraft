@@ -30,11 +30,11 @@ var headers = []string{
 
 type Rows []players.Player
 
-func PrintTable(rows Rows) {
+func PrintTable(repo *players.Repo, rows Rows) {
 	var table = tablewriter.NewWriter(os.Stdout)
 	table.SetHeader(headers)
-	for _, r := range rows {
-		table.Append(r.Row())
+	for _, player := range rows {
+		table.Append(player.Row(repo.Position))
 	}
 	table.Render()
 }

@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"strconv"
 	"strings"
+
+	"github.com/fatih/color"
 )
 
 const (
@@ -60,39 +63,61 @@ type Player struct {
 	Risk              float64  `json:"risk"`
 }
 
-func (p Player) Row() (row []string) {
-	val := reflect.ValueOf(p)
+func (p Player) Row(draftPos int) []string {
 	if p.ID == 0 {
+		val := reflect.ValueOf(p)
 		return make([]string, val.NumField()-1)
 	}
-	for i := 0; i < val.NumField(); i++ {
-		if i == 0 {
-			continue // skip ID
-		}
-		var strVal string
-		switch v := val.Field(i).Interface().(type) {
-		case string:
-			strVal = v
-		case int:
-			strVal = fmt.Sprint(v)
-		case float64:
-			strVal = fmt.Sprintf("%.2f", v)
-		case currency:
-			c := float64(v)
-			if c/math.Trunc(c)-1 == 0 {
-				strVal = fmt.Sprintf("$ %2.0f", v)
-			} else {
-				strVal = fmt.Sprintf("$ %.2f", v)
-			}
 
-		default:
-			strVal = "<error>"
-		}
-		row = append(row, strVal)
+	return []string{
+		p.Name,
+		p.Position,
+		p.Team,
+		formatFloat(p.Floor),
+		formatFloat(p.Ceil),
+		formatCurrency(p.TargetAuctionCost),
+		formatCurrency(p.AAV),
+		formatFloat(p.Dropoff),
+		formatInt(p.Tier),
+		formatInt(p.Age),
+		formatInt(p.Exp),
+		formatInt(p.ByeWeek),
+		formatFloat(p.ECR),
+		formatADP(float64(draftPos), p.ADP),
+		formatInt(p.OverallRank),
+		formatInt(p.PositionRank),
+		formatFloat(p.VOR),
+		formatFloat(p.Risk),
 	}
-	return row
+}
+
+func formatInt(val int) string {
+	return strconv.Itoa(val)
+}
+
+func formatFloat(val float64) string {
+	return fmt.Sprintf("%.2f", val)
+}
+
+func formatCurrency(val currency) string {
+	c := float64(val)
+	if c/math.Trunc(c)-1 == 0 {
+		return fmt.Sprintf("$ %2.0f", c)
+	}
+	return fmt.Sprintf("$ %.2f", c)
+}
+
+func formatADP(draftPos, adp float64) string {
+	switch {
+	case draftPos-adp > 10:
+		return color.MagentaString("%.2f", adp)
+	case draftPos-adp > 0:
+		return color.GreenString("%.2f", adp)
+	default:
+		return fmt.Sprintf("%.2f", adp)
+	}
 }
 
 func (p Player) ShortDesc() string {
-	return strings.Join(p.Row()[:3], " ")
+	return strings.Join(p.Row(0)[:3], " ")
 }

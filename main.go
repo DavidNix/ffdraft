@@ -9,13 +9,15 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fatih/color"
+
 	"github.com/briandowns/spinner"
 	"github.com/davidnix/ffdraft/command"
 	"github.com/davidnix/ffdraft/players"
 )
 
 const cmdUsage = `
-	ffdraft -csv PATH
+	ffdraft -csv PATH -teams NUMBER_OF_TEAMS
 `
 
 const interactiveUsage = `
@@ -29,21 +31,23 @@ Commands:
     help, h: print this interactiveUsage text
     exit: exits this program
 *By default, this program always prints the result of the floor command after every command.
---------------------------------------------------------------------------------------------------------------------
-`
+--------------------------------------------------------------------------------------------------------------------`
 
-var csvPath string
+// Flags
+var (
+	csvPath string
+)
 
 func main() {
 	flag.StringVar(&csvPath, "csv", "", "PATH to csv data")
 	flag.Parse()
-	if csvPath == "" {
-		fmt.Printf("Error: missing csv path\n\nUsage:%s", cmdUsage)
+
+	if e := validateFlags(); e != nil {
+		fmt.Printf("Error: %v\n\nUsage:%s", e, cmdUsage)
 		os.Exit(1)
 	}
 
 	fmt.Println("Welcome to fantasy football!")
-	fmt.Println(interactiveUsage)
 
 	s := startSpinner()
 	undrafted, err := players.LoadFromCSV(csvPath)
@@ -53,12 +57,20 @@ func main() {
 	s.Stop()
 
 	repo := players.NewRepo(undrafted)
-	fmt.Println("Loaded", len(repo.UnDrafted), "offensive players")
+	color.HiGreen("Loaded %d offensive players", len(repo.UnDrafted))
 	command.Floor(repo, []string{})
 
+	fmt.Println(interactiveUsage)
 	startInteractive(repo)
 
 	fmt.Println("Program exited")
+}
+
+func validateFlags() error {
+	if csvPath == "" {
+		return fmt.Errorf("csv required")
+	}
+	return nil
 }
 
 func preventSigTerm() {
