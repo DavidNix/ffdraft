@@ -112,7 +112,7 @@ func formatADP(draftPos, adp float64) string {
 	case adp == 0:
 		// noop
 	case draftPos-adp > 10:
-		return color.MagentaString("%.2f", adp)
+		return color.RedString("%.2f", adp)
 	case draftPos-adp > 0:
 		return color.GreenString("%.2f", adp)
 	}
