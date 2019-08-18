@@ -28,6 +28,7 @@ Commands:
     unpick, u [player id]: adds player back to draft pool
     floor: print the highest floor value for available players for each position
     ceil: print the highest ceiling value for available players for each position
+	team: print a team's depth chart
     help, h: print this interactiveUsage text
     exit: exits this program
 *By default, this program always prints the result of the floor command after every command.
