@@ -2,6 +2,7 @@ package players
 
 type Repo struct {
 	Drafted   []Player
+	Position  int
 	UnDrafted []Player
 }
 

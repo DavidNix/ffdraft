@@ -3,7 +3,7 @@ package players
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestBy_Sort(t *testing.T) {
@@ -20,9 +20,9 @@ func TestBy_Sort(t *testing.T) {
 	}
 	By(floor).Sort(plys)
 
-	assert.Equal(t, plys[0].Name, "Khalil Mack")
-	assert.Equal(t, plys[1].Name, "Emmit Smith")
-	assert.Equal(t, plys[2].Name, "David Carr")
-	assert.Equal(t, plys[3].Name, "Russel Wilson")
-	assert.Equal(t, plys[4].Name, "Peyton Manning")
+	require.Equal(t, plys[0].Name, "Khalil Mack")
+	require.Equal(t, plys[1].Name, "Emmit Smith")
+	require.Equal(t, plys[2].Name, "David Carr")
+	require.Equal(t, plys[3].Name, "Russel Wilson")
+	require.Equal(t, plys[4].Name, "Peyton Manning")
 }

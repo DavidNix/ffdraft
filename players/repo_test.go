@@ -3,7 +3,7 @@ package players
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var drafted []Player = []Player{
@@ -36,20 +36,20 @@ func TestRepo_Find(t *testing.T) {
 	for _, test := range tests {
 		player := subject.FindAll(test.search)[0]
 
-		assert.Equal(t, player.ID, test.result)
+		require.Equal(t, player.ID, test.result)
 	}
 
 	count := len(subject.FindAll("josh"))
 
-	assert.Equal(t, count, 2)
+	require.Equal(t, count, 2)
 }
 
 func TestNewRepo(t *testing.T) {
 	r := NewRepo(unDrafted)
 
 	tebow := r.FindAll("Tim Tebow")
-	assert.Equal(t, len(tebow), 0)
+	require.Equal(t, len(tebow), 0)
 
 	witten := r.FindAll("Witten")
-	assert.Equal(t, len(witten), 1)
+	require.Equal(t, len(witten), 1)
 }
