@@ -7,6 +7,7 @@ func (r *Repo) Pick(p Player) error {
 		if p.ID == player.ID {
 			r.Drafted = append(r.Drafted, p)
 			r.UnDrafted = append(r.UnDrafted[:i], r.UnDrafted[i+1:]...)
+			r.Position++
 			return nil
 		}
 	}
@@ -18,6 +19,7 @@ func (r *Repo) UnPick(p Player) error {
 		if p.ID == player.ID {
 			r.UnDrafted = append(r.UnDrafted, p)
 			r.Drafted = append(r.Drafted[:i], r.Drafted[i+1:]...)
+			r.Position--
 			return nil
 		}
 	}

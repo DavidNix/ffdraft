@@ -3,7 +3,7 @@ package players
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRepo_Pick(t *testing.T) {
@@ -16,22 +16,25 @@ func TestRepo_Pick(t *testing.T) {
 	p.ID = 11
 	err = r.Pick(p)
 
-	assert.Error(t, err)
-	assert.Equal(t, len(r.Drafted), 0)
-	assert.Equal(t, len(r.UnDrafted), 1)
+	require.Error(t, err)
+	require.Equal(t, 0, len(r.Drafted))
+	require.Equal(t, 1, len(r.UnDrafted))
+	require.Equal(t, 0, r.Position)
 
 	p.ID = 10
 	err = r.Pick(p)
 
-	assert.Nil(t, err)
-	assert.Equal(t, len(r.UnDrafted), 0)
-	assert.Equal(t, len(r.Drafted), 1)
+	require.NoError(t, err)
+	require.Equal(t, 0, len(r.UnDrafted))
+	require.Equal(t, 1, len(r.Drafted))
+	require.Equal(t, 1, r.Position)
 }
 
 func TestRepo_UnPick(t *testing.T) {
 	p := Player{ID: 1}
 	r := &Repo{
-		Drafted: []Player{p},
+		Position: 3,
+		Drafted:  []Player{p},
 	}
 
 	var err error
@@ -39,14 +42,16 @@ func TestRepo_UnPick(t *testing.T) {
 	p.ID = 2
 	err = r.UnPick(p)
 
-	assert.Error(t, err)
-	assert.Equal(t, len(r.Drafted), 1)
-	assert.Equal(t, len(r.UnDrafted), 0)
+	require.Error(t, err)
+	require.Equal(t, 1, len(r.Drafted))
+	require.Equal(t, 0, len(r.UnDrafted))
+	require.Equal(t, 3, r.Position)
 
 	p.ID = 1
 	err = r.UnPick(p)
 
-	assert.Nil(t, err)
-	assert.Equal(t, len(r.Drafted), 0)
-	assert.Equal(t, len(r.UnDrafted), 1)
+	require.NoError(t, err)
+	require.Equal(t, 0, len(r.Drafted))
+	require.Equal(t, 1, len(r.UnDrafted))
+	require.Equal(t, 2, r.Position)
 }
