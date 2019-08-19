@@ -45,6 +45,21 @@ func UnPick(r *players.Repo, args []string) {
 	fmt.Println(pDesc, "is now available.", len(r.UnDrafted), "available players remaining.")
 }
 
+func Keep(r *players.Repo, args []string) {
+	name := strings.Join(args, " ")
+	p, err := choose(r.FindAvailable(name))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	if err := r.Keep(p); err != nil {
+		fmt.Println(err)
+		return
+	}
+	pDesc := color.MagentaString(p.ShortDesc())
+	fmt.Println(pDesc, "was kept.", len(r.UnDrafted), "available players remaining.")
+}
+
 func choose(choices []players.Player) (players.Player, error) {
 	for i, p := range choices {
 		fmt.Printf("%v: %s", i+1, p.ShortDesc()+"\n")

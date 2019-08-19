@@ -31,3 +31,7 @@ func Team(repo *players.Repo, args []string) {
 	fmt.Println("DEPTH CHART:")
 	PrintTable(repo, repo.Team(strings.Join(args, "")))
 }
+
+func DraftPosition(repo *players.Repo) {
+	fmt.Println("Draft Position:", repo.Position)
+}

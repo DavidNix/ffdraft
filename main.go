@@ -26,9 +26,11 @@ Commands:
     find, f [player name]: fuzzy finds players matching player name
     pick, p [player id]: removes player from draft pool
     unpick, u [player id]: adds player back to draft pool
-    floor: print the highest floor value for available players for each position
+	keep: Remove a player without advancing draft position (useful for keeper leagues)
+    floor, fl: print the highest floor value for available players for each position
     ceil: print the highest ceiling value for available players for each position
 	team: print a team's depth chart
+	position, dp: Print current draft position
     help, h: print this interactiveUsage text
     exit: exits this program
 *By default, this program always prints the result of the floor command after every command.
@@ -112,6 +114,9 @@ Loop:
 		case "unpick", "u":
 			command.UnPick(repo, args)
 
+		case "keep":
+			command.Keep(repo, args)
+
 		case "floor", "fl":
 			command.Floor(repo, args)
 
@@ -120,6 +125,9 @@ Loop:
 
 		case "team":
 			command.Team(repo, args)
+
+		case "position", "dp":
+			command.DraftPosition(repo)
 
 		case "help", "h", "usage":
 			fmt.Println(interactiveUsage)
