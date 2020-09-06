@@ -1,37 +1,37 @@
 package command
 
 import (
-	"fmt"
-	"strings"
+    "fmt"
+    "strings"
 
-	"github.com/davidnix/ffdraft/players"
+    "github.com/davidnix/ffdraft/players"
 )
 
 func Floor(repo *players.Repo, args []string) {
-	fmt.Println("FLOOR:")
-	if len(args) > 0 {
-		pos := strings.Join(args, "")
-		PrintTable(repo, repo.FloorByPos(pos))
-	} else {
-		PrintTable(repo, repo.Floor())
-	}
+    fmt.Println("FLOOR:")
+    if len(args) > 0 {
+        pos := strings.Join(args, "")
+        PrintTable(repo, repo.FloorByPos(pos))
+    } else {
+        PrintTable(repo, repo.Floor())
+    }
 }
 
 func Ceil(repo *players.Repo, args []string) {
-	fmt.Println("CEILING:")
-	if len(args) > 0 {
-		pos := strings.Join(args, "")
-		PrintTable(repo, repo.CeilByPos(pos))
-	} else {
-		PrintTable(repo, repo.Ceil())
-	}
+    fmt.Println("CEILING:")
+    if len(args) > 0 {
+        pos := strings.Join(args, "")
+        PrintTable(repo, repo.CeilByPos(pos))
+    } else {
+        PrintTable(repo, repo.Ceil())
+    }
 }
 
 func Team(repo *players.Repo, args []string) {
-	fmt.Println("DEPTH CHART:")
-	PrintTable(repo, repo.Team(strings.Join(args, "")))
+    fmt.Println("DEPTH CHART:")
+    PrintTable(repo, repo.Team(strings.Join(args, "")))
 }
 
 func DraftPosition(repo *players.Repo) {
-	fmt.Println("Draft Position:", repo.Position)
+    fmt.Println("Draft Position:", repo.Position)
 }

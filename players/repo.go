@@ -1,18 +1,18 @@
 package players
 
 type Repo struct {
-	Drafted   []Player
-	Position  int
-	UnDrafted []Player
+    Drafted   []Player
+    Position  int
+    UnDrafted []Player
 }
 
 func NewRepo(players []Player) *Repo {
-	pos := Positions()
-	f := func(p Player) bool {
-		return pos[p.Position]
-	}
-	return &Repo{
-		Drafted:   []Player{},
-		UnDrafted: filter(players, f),
-	}
+    pos := Positions()
+    f := func(p Player) bool {
+        return pos[p.Position]
+    }
+    return &Repo{
+        Drafted:   []Player{},
+        UnDrafted: filter(players, f),
+    }
 }
