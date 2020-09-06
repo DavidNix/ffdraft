@@ -17,7 +17,7 @@ import (
 )
 
 const cmdUsage = `
-	ffdraft -csv PATH -teams NUMBER_OF_TEAMS
+	ffdraft -csv PATH 
 `
 
 const interactiveUsage = `
@@ -26,7 +26,7 @@ Commands:
     find, f [player name]: fuzzy finds players matching player name
     pick, p [player id]: removes player from draft pool
     unpick, u [player id]: adds player back to draft pool
-	keep: Remove a player without advancing draft position (useful for keeper leagues)
+	keep: remove a player without advancing draft position (useful for keeper leagues)
     floor, fl: print the highest floor value for available players for each position
     ceil: print the highest ceiling value for available players for each position
 	team: print a team's depth chart
