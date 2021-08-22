@@ -48,13 +48,12 @@ func (r *Repo) Team(name string) []Player {
 	})
 }
 
-func (r *Repo) group(sortFunc By, max int) []Player {
-	results := []Player{}
+func (r *Repo) group(sortFunc By, max int) (results []Player) {
 	for _, pos := range OrderedPositions() {
 		undrafted := filter(r.UnDrafted, func(p Player) bool {
 			return p.Position == pos
 		})
-		By(sortFunc).Sort(undrafted)
+		sortFunc.Sort(undrafted)
 		l := limit(undrafted, max)
 		results = append(results, Player{})
 		results = append(results, l...)
