@@ -2,12 +2,8 @@ package players
 
 import (
 	"fmt"
-	"math"
-	"reflect"
 	"strconv"
 	"strings"
-
-	"github.com/fatih/color"
 )
 
 const (
@@ -38,53 +34,40 @@ func Positions() map[string]bool {
 	return pos
 }
 
-type currency float64
-
-// Player of any type
+// Player of the NFL variety
 type Player struct {
-	AAV               currency `json:"auctionValue"`
-	ADP               float64  `json:"adp"`
-	ByeWeek           int      `json:"bye"`
-	Ceil              float64  `json:"upper"`
-	Dropoff           float64  `json:"dropoff"`
-	ECR               float64  `json:"overallECR"`
-	Exp               int      `json:"exp"`
-	Floor             float64  `json:"lower"`
-	Name              string   `json:"player"`
-	OverallRank       int      `json:"overallRank"`
-	Position          string   `json:"position"`
-	PositionRank      int      `json:"positionRank"`
-	Risk              float64  `json:"risk"`
-	TargetAuctionCost currency `json:"cost"`
-	Team              string   `json:"team"`
-	Tier              int      `json:"tier"`
-	VOR               float64  `json:"vor"`
+	Ceil         float64 `json:"ceiling"`
+	CeilRank     float64 `json:"ceiling_rank"`
+	CeilVor      float64 `json:"ceiling_vor"`
+	Dropoff      float64 `json:"dropoff"`
+	Floor        float64 `json:"floor"`
+	FloorRank    float64 `json:"floor_rank"`
+	FloorVor     float64 `json:"floor_vor"`
+	Injury       string  `json:"injury_status"`
+	Name         string  `json:"player"`
+	OverallRank  int     `json:"rank"`
+	Position     string  `json:"pos"`
+	PositionRank int     `json:"pos_rank"`
+	Risk         float64 `json:"risk"`
+	StdDevPoints float64 `json:"sd_pts"`
+	Team         string  `json:"team"`
+	Tier         int     `json:"tier"`
 }
 
-func (p Player) Row(draftPos int) []string {
-	if p.Name == "" {
-		val := reflect.ValueOf(p)
-		return make([]string, val.NumField()-1)
-	}
-
+func (p Player) Row() []string {
 	return []string{
 		p.Name,
 		p.Position,
 		p.Team,
 		formatFloat(p.Floor),
 		formatFloat(p.Ceil),
-		formatCurrency(p.TargetAuctionCost),
-		formatCurrency(p.AAV),
 		formatFloat(p.Dropoff),
+		formatFloat(p.StdDevPoints),
 		formatInt(p.Tier),
-		formatInt(p.Exp),
-		formatInt(p.ByeWeek),
-		formatFloat(p.ECR),
-		formatADP(float64(draftPos), p.ADP),
 		formatInt(p.OverallRank),
 		formatInt(p.PositionRank),
-		formatFloat(p.VOR),
 		formatFloat(p.Risk),
+		p.Injury,
 	}
 }
 
@@ -96,26 +79,6 @@ func formatFloat(val float64) string {
 	return fmt.Sprintf("%.2f", val)
 }
 
-func formatCurrency(val currency) string {
-	c := float64(val)
-	if c/math.Trunc(c)-1 == 0 {
-		return fmt.Sprintf("$ %2.0f", c)
-	}
-	return fmt.Sprintf("$ %.2f", c)
-}
-
-func formatADP(draftPos, adp float64) string {
-	switch {
-	case adp == 0:
-		// noop
-	case draftPos-adp > 10:
-		return color.RedString("%.2f", adp)
-	case draftPos-adp > 0:
-		return color.GreenString("%.2f", adp)
-	}
-	return fmt.Sprintf("%.2f", adp)
-}
-
 func (p Player) ShortDesc() string {
-	return strings.Join(p.Row(0)[:3], " ")
+	return strings.Join(p.Row()[:3], " ")
 }
