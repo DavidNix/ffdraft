@@ -1,10 +1,9 @@
 package players
 
 import (
-	"os"
-
 	"bytes"
 	"encoding/json"
+	"io"
 
 	"math"
 
@@ -17,19 +16,14 @@ import (
 // Login and use the download button to get the csv. Unfortunately, there lacks an easy way to make a request to get the data
 // IMPORTANT: You want the custom rankings (not the raw).
 // This function take the csv and transforms it into a parseable json file
-func LoadFromCSV(path string) ([]Player, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, errors.WithStack(err)
-	}
-	df := dataframe.ReadCSV(f,
+func LoadFromCSV(r io.Reader) ([]Player, error) {
+	df := dataframe.ReadCSV(r,
 		dataframe.DetectTypes(true),
 		dataframe.WithTypes(map[string]series.Type{
 			"cost": series.Float,
 		}),
 	)
 	df.Capply(zeroInf)
-	// fmt.Println(df)
 	if df.Err != nil {
 		return nil, errors.WithStack(df.Err)
 	}

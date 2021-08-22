@@ -1,16 +1,16 @@
 package command
 
 import (
-    "testing"
+	"testing"
 
-    "github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/require"
 
-    "github.com/davidnix/ffdraft/players"
+	"github.com/davidnix/ffdraft/players"
 )
 
 func TestPrintTable(t *testing.T) {
-    require.NotPanics(t, func() {
-        rows := Rows{players.Player{}}
-        PrintTable(&players.Repo{}, rows)
-    })
+	require.NotPanics(t, func() {
+		rows := Rows{players.Player{}}
+		PrintTable(&players.Repo{}, rows)
+	})
 }

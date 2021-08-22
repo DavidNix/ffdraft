@@ -1,12 +1,12 @@
 package command
 
 import (
-    "strings"
+	"strings"
 
-    "github.com/davidnix/ffdraft/players"
+	"github.com/davidnix/ffdraft/players"
 )
 
 func Find(repo *players.Repo, args []string) {
-    rows := repo.FindAll(strings.Join(args, " "))
-    PrintTable(repo, rows)
+	rows := repo.FindAll(strings.Join(args, " "))
+	PrintTable(repo, rows)
 }
