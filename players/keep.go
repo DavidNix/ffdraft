@@ -1,6 +1,6 @@
 package players
 
-import "errors"
+import "github.com/pkg/errors"
 
 func (r *Repo) Keep(p Player) error {
 	for i, player := range r.UnDrafted {
@@ -10,5 +10,5 @@ func (r *Repo) Keep(p Player) error {
 			return nil
 		}
 	}
-	return errors.New("Keep: could not find player " + p.ShortDesc())
+	return errors.Errorf("Keep: could not find player %s", p)
 }

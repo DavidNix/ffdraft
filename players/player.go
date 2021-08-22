@@ -1,8 +1,6 @@
 package players
 
 import (
-	"fmt"
-	"strconv"
 	"strings"
 )
 
@@ -36,13 +34,15 @@ func Positions() map[string]bool {
 
 // Player of the NFL variety
 type Player struct {
-	Ceil         float64 `json:"ceiling"`
-	CeilRank     float64 `json:"ceiling_rank"`
-	CeilVor      float64 `json:"ceiling_vor"`
+	Ceil     float64 `json:"ceiling"`
+	CeilRank float64 `json:"ceiling_rank"`
+	CeilVor  float64 `json:"ceiling_vor"`
+
+	Floor     float64 `json:"floor"`
+	FloorRank float64 `json:"floor_rank"`
+	FloorVor  float64 `json:"floor_vor"`
+
 	Dropoff      float64 `json:"dropoff"`
-	Floor        float64 `json:"floor"`
-	FloorRank    float64 `json:"floor_rank"`
-	FloorVor     float64 `json:"floor_vor"`
 	Injury       string  `json:"injury_status"`
 	Name         string  `json:"player"`
 	OverallRank  int     `json:"rank"`
@@ -52,33 +52,9 @@ type Player struct {
 	StdDevPoints float64 `json:"sd_pts"`
 	Team         string  `json:"team"`
 	Tier         int     `json:"tier"`
+	Vor          float64 `json:"points_vor"`
 }
 
-func (p Player) Row() []string {
-	return []string{
-		p.Name,
-		p.Position,
-		p.Team,
-		formatFloat(p.Floor),
-		formatFloat(p.Ceil),
-		formatFloat(p.Dropoff),
-		formatFloat(p.StdDevPoints),
-		formatInt(p.Tier),
-		formatInt(p.OverallRank),
-		formatInt(p.PositionRank),
-		formatFloat(p.Risk),
-		p.Injury,
-	}
-}
-
-func formatInt(val int) string {
-	return strconv.Itoa(val)
-}
-
-func formatFloat(val float64) string {
-	return fmt.Sprintf("%.2f", val)
-}
-
-func (p Player) ShortDesc() string {
-	return strings.Join(p.Row()[:3], " ")
+func (p Player) String() string {
+	return strings.Join([]string{p.Name, p.Position, p.Team}, " ")
 }

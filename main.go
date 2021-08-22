@@ -46,18 +46,23 @@ func main() {
 	flag.Parse()
 
 	if e := validateFlags(); e != nil {
-		fmt.Printf("Error: %v\n\nUsage:%s", e, cmdUsage)
-		os.Exit(1)
+		log.Fatal(e)
 	}
 
 	fmt.Println("Welcome to fantasy football!")
 
-	s := startSpinner()
-	undrafted, err := players.LoadFromCSV(csvPath)
+	spinner := startSpinner()
+	f, err := os.Open(csvPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	undrafted, err := players.LoadFromCSV(f)
 	if err != nil {
 		log.Fatal("unable to load csv:", err)
 	}
-	s.Stop()
+	spinner.Stop()
 
 	repo := players.NewRepo(undrafted)
 	color.HiGreen("Loaded %d offensive players", len(repo.UnDrafted))
@@ -66,7 +71,7 @@ func main() {
 	fmt.Println(interactiveUsage)
 	startInteractive(repo)
 
-	fmt.Println("Program exited")
+	fmt.Println("program exited")
 }
 
 func validateFlags() error {
@@ -80,7 +85,7 @@ func preventSigTerm() {
 	ch := make(chan os.Signal)
 	signal.Notify(ch, os.Interrupt)
 	go func() {
-		for _ = range ch {
+		for range ch {
 			fmt.Println("Interrupt caught: ignoring. Use `exit` or ctl+D")
 		}
 	}()

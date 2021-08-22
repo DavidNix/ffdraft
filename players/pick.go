@@ -1,6 +1,6 @@
 package players
 
-import "errors"
+import "github.com/pkg/errors"
 
 func (r *Repo) Pick(p Player) error {
 	for i, player := range r.UnDrafted {
@@ -11,7 +11,7 @@ func (r *Repo) Pick(p Player) error {
 			return nil
 		}
 	}
-	return errors.New("pick: could not find player " + p.ShortDesc())
+	return errors.Errorf("pick: could not find player %s", p)
 }
 
 func (r *Repo) UnPick(p Player) error {
@@ -23,5 +23,5 @@ func (r *Repo) UnPick(p Player) error {
 			return nil
 		}
 	}
-	return errors.New("unpick: could not find player " + p.ShortDesc())
+	return errors.Errorf("unpick: could not find player %s", p)
 }

@@ -4,9 +4,10 @@ import (
 	"strings"
 
 	"github.com/davidnix/ffdraft/players"
+	"github.com/davidnix/ffdraft/presenter"
 )
 
 func Find(repo *players.Repo, args []string) {
-	rows := repo.FindAll(strings.Join(args, " "))
-	PrintTable(repo, rows)
+	found := repo.FindAll(strings.Join(args, " "))
+	PrintTable(presenter.Players(found))
 }

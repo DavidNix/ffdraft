@@ -33,6 +33,7 @@ func TestLoadFromCSV(t *testing.T) {
 		StdDevPoints: 21,
 		Team:         "ARI",
 		Tier:         2,
+		Vor:          72.3,
 	}
 
 	require.Equal(t, want, p[2])
