@@ -76,7 +76,7 @@ func (fp FloorPlayers) Rows() (rows [][]string) {
 	for _, p := range fp {
 		row := buildRow(p,
 			Float(p.Floor).String(),
-			Float(p.FloorRank).String(),
+			Int(p.FloorRank).String(),
 			Float(p.FloorVor).String(),
 		)
 		rows = append(rows, row)
@@ -96,7 +96,7 @@ func (cp CeilPlayers) Rows() (rows [][]string) {
 	for _, p := range cp {
 		row := buildRow(p,
 			Float(p.Ceil).String(),
-			Float(p.CeilRank).String(),
+			Int(p.CeilRank).String(),
 			Float(p.CeilVor).String(),
 		)
 		rows = append(rows, row)
