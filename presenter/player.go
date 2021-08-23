@@ -8,6 +8,8 @@ var startCols = []string{
 	"Player",
 	"Pos",
 	"Team",
+	"Age",
+	"Exp",
 }
 
 var endCols = []string{
@@ -17,19 +19,20 @@ var endCols = []string{
 	"Drop",
 	"StdDev",
 	"VOR",
-	"Risk",
-	"Injury",
+	"ADP",
 }
 
 func buildRow(p players.Player, middleVals ...string) (row []string) {
-	if p.Name == "" {
+	if p.Name() == "" {
 		// blank row
 		return make([]string, len(middleVals)+11)
 	}
 	row = append(row,
-		p.Name,
+		p.Name(),
 		p.Position,
 		p.Team,
+		Int(p.Age).String(),
+		Int(p.Exp).String(),
 	)
 	row = append(row, middleVals...)
 	row = append(row,
@@ -39,8 +42,7 @@ func buildRow(p players.Player, middleVals ...string) (row []string) {
 		Float(p.Dropoff).String(),
 		Float(p.StdDevPoints).String(),
 		Float(p.Vor).String(),
-		Float(p.Risk).String(),
-		Injury(p.Injury).String(),
+		Int(p.ADP).String(),
 	)
 	return row
 }

@@ -8,33 +8,36 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-//go:embed testdata/fixtures/rankings.csv
+//go:embed testdata/fixtures/projections.csv
 var fixtureCSV []byte
 
 func TestLoadFromCSV(t *testing.T) {
-	p, err := LoadFromCSV(bytes.NewReader(fixtureCSV))
+	got, err := LoadFromCSV(bytes.NewReader(fixtureCSV))
 	require.NoError(t, err)
-	require.Equal(t, 32, len(p))
+	require.NotEmpty(t, got)
 
 	want := Player{
-		Ceil:         386,
-		CeilRank:     25,
-		CeilVor:      80.5,
-		Dropoff:      4.88,
-		Floor:        327,
-		FloorRank:    23,
-		FloorVor:     74.4,
-		Injury:       "",
-		Name:         "Kyler Murray",
-		OverallRank:  28,
+		ADP:          64.43,
+		Age:          24,
+		Ceil:         382.811,
+		CeilRank:     24,
+		CeilVor:      76.5103405358627,
+		Dropoff:      18.1745431233252,
+		Exp:          1,
+		Floor:        328.143,
+		FloorRank:    29,
+		FloorVor:     72.0303333333333,
+		ID:           14056,
+		NameFirst:    "Kyler",
+		NameLast:     "Murray",
+		OverallRank:  24,
 		Position:     "QB",
-		PositionRank: 3,
-		Risk:         3.64,
-		StdDevPoints: 21,
+		PositionRank: 4,
+		StdDevPoints: 20.9414080892839,
 		Team:         "ARI",
 		Tier:         2,
-		Vor:          72.3,
+		Vor:          74.0442784496819,
 	}
 
-	require.Equal(t, want, p[2])
+	require.Equal(t, want, got[2])
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func TestPlayer_String(t *testing.T) {
-	p := Player{Name: "Bob", Position: "DST", Team: "DAL"}
+	p := Player{NameFirst: "Bob", NameLast: "Smith", Position: "DST", Team: "DAL"}
 
-	require.Equal(t, "Bob DST DAL", p.String())
+	require.Equal(t, "Bob Smith DST DAL", p.String())
 }

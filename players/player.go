@@ -42,19 +42,26 @@ type Player struct {
 	FloorRank float64 `json:"floor_rank"`
 	FloorVor  float64 `json:"floor_vor"`
 
-	Dropoff      float64 `json:"dropoff"`
-	Injury       string  `json:"injury_status"`
-	Name         string  `json:"player"`
+	ADP          float64 `json:"adp"`
+	Age          int     `json:"age"`
+	Dropoff      float64 `json:"drop_off"`
+	Exp          int     `json:"exp"`
+	ID           int     `json:"id"`
+	NameFirst    string  `json:"first_name"`
+	NameLast     string  `json:"last_name"`
 	OverallRank  int     `json:"rank"`
 	Position     string  `json:"pos"`
 	PositionRank int     `json:"pos_rank"`
-	Risk         float64 `json:"risk"`
 	StdDevPoints float64 `json:"sd_pts"`
 	Team         string  `json:"team"`
 	Tier         int     `json:"tier"`
 	Vor          float64 `json:"points_vor"`
 }
 
+func (p Player) Name() string {
+	return p.NameFirst + " " + p.NameLast
+}
+
 func (p Player) String() string {
-	return strings.Join([]string{p.Name, p.Position, p.Team}, " ")
+	return strings.Join([]string{p.Name(), p.Position, p.Team}, " ")
 }

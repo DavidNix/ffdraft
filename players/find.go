@@ -20,7 +20,7 @@ func (r *Repo) FindUnavailable(name string) []Player {
 func find(name string, plyrs []Player) []Player {
 	found := []Player{}
 	for _, p := range plyrs {
-		if fuzzy.MatchFold(name, p.Name) {
+		if fuzzy.MatchFold(name, p.Name()) {
 			found = append(found, p)
 		}
 	}

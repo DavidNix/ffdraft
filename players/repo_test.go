@@ -7,15 +7,15 @@ import (
 )
 
 var drafted = []Player{
-	{Name: "Antonio Brown", Position: "WR"},
-	{Name: "Tony Romo", Position: "QB"},
+	{NameFirst: "Antonio", NameLast: "Brown", Position: "WR"},
+	{NameFirst: "Tony", NameLast: "Romo", Position: "QB"},
 }
 
 var unDrafted = []Player{
-	{Name: "Jason Witten", Position: "TE"},
-	{Name: "Josh Gordon", Position: "WR"},
-	{Name: "Joshua Smith", Position: "RB"},
-	{Name: "Tim Tebow", Position: "Baseball"},
+	{NameFirst: "Jason", NameLast: "Witten", Position: "TE"},
+	{NameFirst: "Josh", NameLast: "Gordon", Position: "WR"},
+	{NameFirst: "Joshua Smith", Position: "RB"},
+	{NameFirst: "Tim", NameLast: "Tebow", Position: "Baseball"},
 }
 
 var subject = &Repo{
@@ -36,7 +36,7 @@ func TestRepo_Find(t *testing.T) {
 	for _, tt := range tests {
 		player := subject.FindAll(tt.search)[0]
 
-		require.Equal(t, player.Name, tt.wantName)
+		require.Equal(t, player.Name(), tt.wantName)
 	}
 
 	count := len(subject.FindAll("josh"))
