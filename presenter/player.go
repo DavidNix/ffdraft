@@ -23,10 +23,6 @@ var endCols = []string{
 }
 
 func buildRow(p players.Player, middleVals ...string) (row []string) {
-	if p.Name() == "" {
-		// blank row
-		return make([]string, len(middleVals)+11)
-	}
 	row = append(row,
 		p.Name(),
 		p.Position,
@@ -44,6 +40,12 @@ func buildRow(p players.Player, middleVals ...string) (row []string) {
 		Float(p.Vor).String(),
 		Int(p.ADP).String(),
 	)
+
+	if p.ID == 0 {
+		// blank row
+		return make([]string, len(row))
+	}
+
 	return row
 }
 
