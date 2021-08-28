@@ -20,6 +20,7 @@ var endCols = []string{
 	"StdDev",
 	"VOR",
 	"ADP",
+	"Risk",
 }
 
 func buildRow(p players.Player, middleVals ...string) (row []string) {
@@ -39,6 +40,7 @@ func buildRow(p players.Player, middleVals ...string) (row []string) {
 		Float(p.StdDevPoints).String(),
 		Float(p.Vor).String(),
 		Int(p.ADP).String(),
+		Float(p.Risk).String(),
 	)
 
 	if p.ID == 0 {

@@ -56,6 +56,7 @@ type Player struct {
 	Team         string  `json:"team"`
 	Tier         int     `json:"tier"`
 	Vor          float64 `json:"points_vor"`
+	Risk         float64 `json:"risk"`
 }
 
 func (p Player) Name() string {
