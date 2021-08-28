@@ -12,8 +12,8 @@ scraped = scrape_data(pos = pos, season = as.integer(year), week = 0)
 
 projections = projections_table(scraped)
 
-final = projections %>% add_adp() %>% add_player_info() %>% add_risk()
+final = projections %>% add_adp() %>% add_player_info() %>% add_er() %>% add_risk()
 
 # types: average, weighted, robust
-final %>% filter(avg_type == "robust") %>% write.csv(file = "projections.csv", row.names=FALSE)
+final %>% filter(avg_type == "weighted") %>% write.csv(file = "projections.csv", row.names=FALSE)
   
