@@ -2,23 +2,9 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"os"
-	"os/signal"
-	"strings"
-	"time"
-
-	"github.com/fatih/color"
-
-	"github.com/briandowns/spinner"
-	"github.com/davidnix/ffdraft/command"
-	"github.com/davidnix/ffdraft/players"
 )
-
-const cmdUsage = `
-	ffdraft -csv PATH 
-`
 
 const interactiveUsage = `
 --------------------------------------------------------------------------------------------------------------------
@@ -36,121 +22,20 @@ Commands:
 *By default, always prints the result of floor after every command.
 --------------------------------------------------------------------------------------------------------------------`
 
-// Flags
-var (
+type cmdConfig struct {
 	csvPath string
-)
+}
 
 func main() {
-	flag.StringVar(&csvPath, "csv", "", "PATH to csv data")
+	log.SetFlags(0)
+	log.SetOutput(os.Stdout)
+
+	var cfg cmdConfig
+
+	flag.StringVar(&cfg.csvPath, "csv", "", "PATH to csv data")
 	flag.Parse()
 
-	if e := validateFlags(); e != nil {
-		log.Fatal(e)
+	if err := interactiveDraft(cfg); err != nil {
+		log.Fatalln(err)
 	}
-
-	fmt.Println("Welcome to fantasy football!")
-
-	spinner := startSpinner()
-	f, err := os.Open(csvPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-
-	undrafted, err := players.LoadFromCSV(f)
-	if err != nil {
-		log.Fatal("unable to load csv:", err)
-	}
-	spinner.Stop()
-
-	repo := players.NewRepo(undrafted)
-	color.HiGreen("Loaded %d offensive players", len(repo.UnDrafted))
-	command.Floor(repo, []string{})
-
-	fmt.Println(interactiveUsage)
-	startInteractive(repo)
-
-	fmt.Println("program exited")
-}
-
-func validateFlags() error {
-	if csvPath == "" {
-		return fmt.Errorf("csv required")
-	}
-	return nil
-}
-
-func preventSigTerm() {
-	ch := make(chan os.Signal)
-	signal.Notify(ch, os.Interrupt)
-	go func() {
-		for range ch {
-			fmt.Println("Interrupt caught: ignoring. Use `exit` or ctl+D")
-		}
-	}()
-}
-
-func startInteractive(repo *players.Repo) {
-	preventSigTerm()
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Println("Recovered from fatal error:", err)
-			startInteractive(repo)
-		}
-	}()
-Loop:
-	for {
-		input := strings.Fields(command.GetInput('\n'))
-		var cmd string
-		args := []string{}
-		if len(input) > 0 {
-			cmd = input[0]
-			args = input[1:]
-		}
-
-		switch cmd {
-		case "find", "f":
-			command.Find(repo, args)
-
-		case "pick", "p":
-			command.Pick(repo, args)
-
-		case "unpick", "u":
-			command.UnPick(repo, args)
-
-		case "keep":
-			command.Keep(repo, args)
-
-		case "floor", "fl":
-			command.Floor(repo, args)
-
-		case "ceil":
-			command.Ceil(repo, args)
-
-		case "team":
-			command.Team(repo, args)
-
-		case "position", "dp":
-			command.DraftPosition(repo)
-
-		case "help", "h", "usage":
-			fmt.Println(interactiveUsage)
-
-		case "exit":
-			break Loop
-
-		case "":
-			continue
-
-		default:
-			fmt.Println("Unrecognized command \"" + cmd + "\". Type help for usage.")
-		}
-	}
-}
-
-func startSpinner() *spinner.Spinner {
-	s := spinner.New(spinner.CharSets[7], 100*time.Millisecond)
-	s.Start()
-	return s
 }
