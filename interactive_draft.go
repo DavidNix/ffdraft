@@ -19,12 +19,34 @@ var interactiveCmd = &cli.Command{
 	Flags: []cli.Flag{
 		&cli.StringFlag{
 			Name:     "csv",
-			Usage:    "path to projections csv",
+			Usage:    "(required) path to projections csv",
+			Required: true,
+		},
+		&cli.StringFlag{
+			Name:     "team",
+			Usage:    "(required) your team name",
 			Required: true,
 		},
 	},
 	Action: interactiveAction,
 }
+
+const interactiveUsage = `
+--------------------------------------------------------------------------------------------------------------------
+Commands:
+	add [name]:				picks and adds player to your team, saved to file
+    ceil:                   print the highest ceiling value for available players for each position
+    exit, ctl+D:            exits this program
+    find, f [name]:         fuzzy finds players matching player name
+    floor, fl:              print the highest floor value for available players for each position
+    help, h:                print this interactiveUsage text
+    keep:                   remove a player without advancing draft position (useful for keeper leagues)
+    pick, p [name]:         removes player from draft pool
+    position, dp:           print current draft position
+    team:                   print a team's depth chart
+    unpick, u [name]: 	    adds player back to draft pool
+*By default, always prints the result of floor after every command.
+--------------------------------------------------------------------------------------------------------------------`
 
 func interactiveAction(ctx *cli.Context) error {
 	csvPath := ctx.String("csv")
@@ -47,9 +69,14 @@ func interactiveAction(ctx *cli.Context) error {
 
 	repo := players.NewRepo(undrafted)
 	color.HiGreen("Loaded %d offensive players", len(repo.UnDrafted))
+	repo.MyTeam.Name = ctx.String("team")
+	log.Println("Your team is", repo.MyTeam.Name)
 	command.Floor(repo, []string{})
 
 	preventSigTerm()
+
+	defer command.SaveTeam(repo)
+
 	return startInteractive(repo)
 }
 
