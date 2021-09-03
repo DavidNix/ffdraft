@@ -1,7 +1,7 @@
 package command
 
 import (
-	"fmt"
+	"log"
 	"strings"
 
 	"github.com/davidnix/ffdraft/players"
@@ -9,7 +9,7 @@ import (
 )
 
 func Floor(repo *players.Repo, args []string) {
-	fmt.Println("FLOOR:")
+	log.Println("FLOOR:")
 	if len(args) > 0 {
 		pos := strings.Join(args, "")
 		PrintTable(presenter.FloorPlayers(repo.FloorByPos(pos)))
@@ -19,7 +19,7 @@ func Floor(repo *players.Repo, args []string) {
 }
 
 func Ceil(repo *players.Repo, args []string) {
-	fmt.Println("CEILING:")
+	log.Println("CEILING:")
 	if len(args) > 0 {
 		pos := strings.Join(args, "")
 		PrintTable(presenter.CeilPlayers(repo.CeilByPos(pos)))
@@ -29,10 +29,10 @@ func Ceil(repo *players.Repo, args []string) {
 }
 
 func Team(repo *players.Repo, args []string) {
-	fmt.Println("DEPTH CHART:")
+	log.Println("DEPTH CHART:")
 	PrintTable(presenter.Players(repo.Team(strings.Join(args, ""))))
 }
 
 func DraftPosition(repo *players.Repo) {
-	fmt.Println("Draft Position:", repo.Position)
+	log.Println("Draft Position:", repo.Position)
 }

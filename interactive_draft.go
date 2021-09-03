@@ -49,15 +49,12 @@ func interactiveAction(ctx *cli.Context) error {
 	color.HiGreen("Loaded %d offensive players", len(repo.UnDrafted))
 	command.Floor(repo, []string{})
 
-	log.Println(interactiveUsage)
-	startInteractive(repo)
-
-	log.Println("program exited")
-	return nil
+	preventSigTerm()
+	return startInteractive(repo)
 }
 
 func preventSigTerm() {
-	ch := make(chan os.Signal)
+	ch := make(chan os.Signal, 1)
 	signal.Notify(ch, os.Interrupt)
 	go func() {
 		for range ch {
@@ -66,17 +63,14 @@ func preventSigTerm() {
 	}()
 }
 
-func startInteractive(repo *players.Repo) {
-	preventSigTerm()
-	defer func() {
-		if err := recover(); err != nil {
-			log.Println("Recovered from fatal error:", err)
-			startInteractive(repo)
-		}
-	}()
-Loop:
+func startInteractive(repo *players.Repo) error {
+	log.Println(interactiveUsage)
 	for {
-		input := strings.Fields(command.GetInput('\n'))
+		in, err := command.GetInput('\n')
+		if err != nil {
+			return err
+		}
+		input := strings.Fields(in)
 		var cmd string
 		args := []string{}
 		if len(input) > 0 {
@@ -113,7 +107,7 @@ Loop:
 			log.Println(interactiveUsage)
 
 		case "exit":
-			break Loop
+			return errors.New("user canceled")
 
 		case "":
 			continue
