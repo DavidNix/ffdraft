@@ -10,7 +10,12 @@ print(year)
 pos = c("QB", "RB", "WR", "TE", "K", "DST")
 scraped = scrape_data(pos = pos, season = as.integer(year), week = 0)
 
-projections = projections_table(scraped)
+# 0.5 PPR, leave default for standard
+ppr_scoring = custom_scoring(pass_yds = 0.04, pass_tds = 4,
+                             rush_yds = 0.1, rush_tds = 6,
+                             rec = 0.5, rec_yds = 0.1, rec_tds = 6)
+
+projections = projections_table(scraped, scoring_rules = ppr_scoring)
 
 final = projections %>% add_adp() %>% add_player_info() %>% add_ecr() %>% add_risk()
 
