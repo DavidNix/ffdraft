@@ -1,9 +1,10 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"os"
+
+	"github.com/urfave/cli/v2"
 )
 
 const interactiveUsage = `
@@ -22,20 +23,24 @@ Commands:
 *By default, always prints the result of floor after every command.
 --------------------------------------------------------------------------------------------------------------------`
 
-type cmdConfig struct {
-	csvPath string
-}
-
 func main() {
 	log.SetFlags(0)
 	log.SetOutput(os.Stdout)
 
-	var cfg cmdConfig
+	app := &cli.App{
+		Name:        "ffdraft",
+		Usage:       "Fantasy football drafting and lineup optimization.",
+		Version:     "v0.0.1",
+		Description: "Relies on the good work of https://github.com/FantasyFootballAnalytics/ffanalytics",
+		Commands: []*cli.Command{
+			interactiveCmd,
+			lineupCmd,
+		},
+		Authors:   []*cli.Author{{Name: "David Nix"}},
+		Copyright: "MIT License",
+	}
 
-	flag.StringVar(&cfg.csvPath, "csv", "", "PATH to csv data")
-	flag.Parse()
-
-	if err := interactiveDraft(cfg); err != nil {
-		log.Fatalln(err)
+	if err := app.Run(os.Args); err != nil {
+		log.Fatal(err)
 	}
 }

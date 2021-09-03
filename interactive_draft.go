@@ -10,14 +10,29 @@ import (
 	"github.com/davidnix/ffdraft/players"
 	"github.com/fatih/color"
 	"github.com/pkg/errors"
+	"github.com/urfave/cli/v2"
 )
 
-func interactiveDraft(cfg cmdConfig) error {
-	if cfg.csvPath == "" {
+var interactiveCmd = &cli.Command{
+	Name:  "start",
+	Usage: "Start interactive draft mode",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:     "csv",
+			Usage:    "path to projections csv",
+			Required: true,
+		},
+	},
+	Action: interactiveAction,
+}
+
+func interactiveAction(ctx *cli.Context) error {
+	csvPath := ctx.String("csv")
+	if csvPath == "" {
 		return errors.New("csv path required")
 	}
 
-	f, err := os.Open(cfg.csvPath)
+	f, err := os.Open(csvPath)
 	if err != nil {
 		return err
 	}
