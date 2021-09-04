@@ -13,9 +13,9 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var interactiveCmd = &cli.Command{
-	Name:  "start",
-	Usage: "Start interactive draft mode",
+var draftCmd = &cli.Command{
+	Name:  "draft",
+	Usage: "Start interactive draft",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
 			Name:     "csv",
@@ -29,7 +29,6 @@ var interactiveCmd = &cli.Command{
 const draftUsage = `
 --------------------------------------------------------------------------------------------------------------------
 Commands:
-	add [name]:				picks and adds player to your team, saved to file
     ceil:                   print the highest ceiling value for available players for each position
     exit, ctl+D:            exits this program
     find, f [name]:         fuzzy finds players matching player name
@@ -53,7 +52,6 @@ func interactiveAction(ctx *cli.Context) error {
 	command.Floor(repo, []string{})
 
 	preventSigTerm()
-	defer command.SaveTeam(repo)
 	return startInteractive(repo)
 }
 

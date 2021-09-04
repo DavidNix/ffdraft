@@ -17,8 +17,9 @@ func main() {
 		Version:     "v0.0.1",
 		Description: "Relies on the good work of https://github.com/FantasyFootballAnalytics/ffanalytics",
 		Commands: []*cli.Command{
-			interactiveCmd,
+			draftCmd,
 			lineupCmd,
+			teamCmd,
 		},
 		Authors:   []*cli.Author{{Name: "David Nix"}},
 		Copyright: "MIT License",

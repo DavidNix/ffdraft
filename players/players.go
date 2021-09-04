@@ -21,6 +21,9 @@ func (ps Players) GroupPosition(sort By, max int) (results Players) {
 		})
 		sort.Sort(players)
 		l := limit(players, max)
+		if len(l) == 0 {
+			continue
+		}
 		results = append(results, Player{})
 		results = append(results, l...)
 	}

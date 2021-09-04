@@ -57,3 +57,5 @@ docs/
 po/*~
 
 R/*.csv
+
+*.json
