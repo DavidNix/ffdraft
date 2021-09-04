@@ -1,18 +1,18 @@
 package players
 
 type Repo struct {
-	Claimed   []Player
+	Claimed   Players
 	Position  int
-	Available []Player
+	Available Players
 }
 
-func NewRepo(players []Player) *Repo {
+func NewRepo(players Players) *Repo {
 	pos := Positions()
 	f := func(p Player) bool {
 		return pos[p.Position]
 	}
 	return &Repo{
-		Claimed:   []Player{},
-		Available: filter(players, f),
+		Claimed:   Players{},
+		Available: players.Filter(f),
 	}
 }

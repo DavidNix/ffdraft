@@ -40,7 +40,6 @@ Commands:
     position, dp:           print current draft position
     team:                   print a team's depth chart
     unpick, u [name]: 	    adds player back to draft pool
-*By default, always prints the result of floor after every command.
 --------------------------------------------------------------------------------------------------------------------`
 
 func interactiveAction(ctx *cli.Context) error {
