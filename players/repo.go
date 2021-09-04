@@ -1,11 +1,7 @@
 package players
 
 type Repo struct {
-	Drafted []Player
-	MyTeam  struct {
-		Name string
-		Team []Player
-	}
+	Drafted   []Player
 	Position  int
 	UnDrafted []Player
 }
