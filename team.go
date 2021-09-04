@@ -60,7 +60,7 @@ func teamInteractive(ctx *cli.Context) error {
 			grouped := team.Players.GroupPosition(func(p1, p2 players.Player) bool {
 				return p1.Name() < p2.Name()
 			}, 100)
-			command.PrintTable(presenter.Players(grouped))
+			command.PrintTable(presenter.Team(grouped))
 		}
 
 		in, err := command.GetInput()
