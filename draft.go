@@ -22,11 +22,6 @@ var interactiveCmd = &cli.Command{
 			Usage:    "(required) path to projections csv",
 			Required: true,
 		},
-		&cli.StringFlag{
-			Name:     "team",
-			Usage:    "(required) your team name",
-			Required: true,
-		},
 	},
 	Action: interactiveAction,
 }
@@ -69,8 +64,6 @@ func interactiveAction(ctx *cli.Context) error {
 
 	repo := players.NewRepo(undrafted)
 	color.HiGreen("Loaded %d offensive players", len(repo.UnDrafted))
-	repo.MyTeam.Name = ctx.String("team")
-	log.Println("Your team is", repo.MyTeam.Name)
 	command.Floor(repo, []string{})
 
 	preventSigTerm()
@@ -93,7 +86,7 @@ func preventSigTerm() {
 func startInteractive(repo *players.Repo) error {
 	log.Println(interactiveUsage)
 	for {
-		in, err := command.GetInput('\n')
+		in, err := command.GetInput()
 		if err != nil {
 			return err
 		}

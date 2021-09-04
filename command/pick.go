@@ -10,7 +10,10 @@ import (
 	"github.com/fatih/color"
 )
 
-var invalidErr = errors.New("Invalid choice. No player selected.")
+var (
+	errInvalidChoice  = errors.New("invalid choice; no player selected")
+	errPlayerNotFound = errors.New("no players found")
+)
 
 func Pick(r *players.Repo, args []string) {
 	name := strings.Join(args, " ")
@@ -61,22 +64,26 @@ func Keep(r *players.Repo, args []string) {
 }
 
 func choose(choices []players.Player) (p players.Player, _ error) {
-	for i, p := range choices {
-		log.Printf("%v: %s", i+1, p.String()+"\n")
+	if len(choices) == 0 {
+		return p, errPlayerNotFound
+	}
+
+	for i, c := range choices {
+		log.Printf("%v: %s", i+1, c.String()+"\n")
 	}
 
 	log.Print("Choose player:")
-	in, err := GetInput('\n')
+	in, err := GetInput()
 	if err != nil {
 		return p, err
 	}
 	selection, err := strconv.ParseInt(in, 0, 0)
 	if err != nil {
-		return p, invalidErr
+		return p, errInvalidChoice
 	}
 	index := int(selection - 1)
 	if index < 0 || index >= len(choices) {
-		return p, invalidErr
+		return p, errInvalidChoice
 	}
 	return choices[index], nil
 }

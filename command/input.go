@@ -7,9 +7,9 @@ import (
 	"strings"
 )
 
-func GetInput(delim byte) (string, error) {
+func GetInput() (string, error) {
 	fmt.Print("> ")
 	in := bufio.NewReader(os.Stdin)
-	line, err := in.ReadString(delim)
+	line, err := in.ReadString('\n')
 	return strings.TrimSpace(line), err
 }
