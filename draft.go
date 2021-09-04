@@ -26,7 +26,7 @@ var interactiveCmd = &cli.Command{
 	Action: interactiveAction,
 }
 
-const interactiveUsage = `
+const draftUsage = `
 --------------------------------------------------------------------------------------------------------------------
 Commands:
 	add [name]:				picks and adds player to your team, saved to file
@@ -34,7 +34,7 @@ Commands:
     exit, ctl+D:            exits this program
     find, f [name]:         fuzzy finds players matching player name
     floor, fl:              print the highest floor value for available players for each position
-    help, h:                print this interactiveUsage text
+    help, h:                print this help text
     keep:                   remove a player without advancing draft position (useful for keeper leagues)
     pick, p [name]:         removes player from draft pool
     position, dp:           print current draft position
@@ -44,32 +44,17 @@ Commands:
 --------------------------------------------------------------------------------------------------------------------`
 
 func interactiveAction(ctx *cli.Context) error {
-	csvPath := ctx.String("csv")
-	if csvPath == "" {
-		return errors.New("csv path required")
-	}
-
-	f, err := os.Open(csvPath)
+	repo, err := buildRepo(ctx.String("csv"))
 	if err != nil {
 		return err
 	}
-	defer f.Close()
 
 	log.Println("Welcome to fantasy football!")
-
-	undrafted, err := players.LoadFromCSV(f)
-	if err != nil {
-		return err
-	}
-
-	repo := players.NewRepo(undrafted)
-	color.HiGreen("Loaded %d offensive players", len(repo.UnDrafted))
+	color.HiGreen("Loaded %d offensive players", len(repo.Available))
 	command.Floor(repo, []string{})
 
 	preventSigTerm()
-
 	defer command.SaveTeam(repo)
-
 	return startInteractive(repo)
 }
 
@@ -84,7 +69,7 @@ func preventSigTerm() {
 }
 
 func startInteractive(repo *players.Repo) error {
-	log.Println(interactiveUsage)
+	log.Println(draftUsage)
 	for {
 		in, err := command.GetInput()
 		if err != nil {
@@ -124,7 +109,7 @@ func startInteractive(repo *players.Repo) error {
 			command.DraftPosition(repo)
 
 		case "help", "h", "usage":
-			log.Println(interactiveUsage)
+			log.Println(draftUsage)
 
 		case "exit":
 			return errors.New("user canceled")
@@ -133,7 +118,7 @@ func startInteractive(repo *players.Repo) error {
 			continue
 
 		default:
-			log.Println("Unrecognized command \"" + cmd + "\". Type help for usage.")
+			log.Printf("Unrecognized command %q. Type help for usage.\n", cmd)
 		}
 	}
 }
