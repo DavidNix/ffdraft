@@ -7,21 +7,21 @@ import (
 	"github.com/pkg/errors"
 )
 
-func buildRepo(path string) (*players.Repo, error) {
-	if path == "" {
+func buildRepo(csvPath string) (*players.Repo, error) {
+	if csvPath == "" {
 		return nil, errors.New("csv path required")
 	}
 
-	f, err := os.Open(path)
+	f, err := os.Open(csvPath)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
 
-	undrafted, err := players.LoadFromCSV(f)
+	available, err := players.LoadFromCSV(f)
 	if err != nil {
 		return nil, err
 	}
 
-	return players.NewRepo(undrafted), nil
+	return players.NewRepo(available), nil
 }

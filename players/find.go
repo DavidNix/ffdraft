@@ -4,17 +4,17 @@ import "github.com/lithammer/fuzzysearch/fuzzy"
 
 func (r *Repo) FindAll(name string) []Player {
 	all := []Player{}
-	all = append(all, r.Drafted...)
-	all = append(all, r.UnDrafted...)
+	all = append(all, r.Claimed...)
+	all = append(all, r.Available...)
 	return find(name, all)
 }
 
 func (r *Repo) FindAvailable(name string) []Player {
-	return find(name, r.UnDrafted)
+	return find(name, r.Available)
 }
 
 func (r *Repo) FindUnavailable(name string) []Player {
-	return find(name, r.Drafted)
+	return find(name, r.Claimed)
 }
 
 func find(name string, plyrs []Player) []Player {

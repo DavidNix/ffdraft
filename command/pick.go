@@ -29,7 +29,7 @@ func Pick(r *players.Repo, args []string) {
 		return
 	}
 	pDesc := color.CyanString(p.String())
-	log.Println(pDesc, "was picked.", len(r.UnDrafted), "available players remaining.")
+	log.Println(pDesc, "was picked.", len(r.Available), "available players remaining.")
 }
 
 func UnPick(r *players.Repo, args []string) {
@@ -45,7 +45,7 @@ func UnPick(r *players.Repo, args []string) {
 		return
 	}
 	pDesc := color.GreenString(p.String())
-	log.Println(pDesc, "is now available.", len(r.UnDrafted), "available players remaining.")
+	log.Println(pDesc, "is now available.", len(r.Available), "available players remaining.")
 }
 
 func Keep(r *players.Repo, args []string) {
@@ -60,7 +60,7 @@ func Keep(r *players.Repo, args []string) {
 		return
 	}
 	pDesc := color.MagentaString(p.String())
-	log.Println(pDesc, "was kept.", len(r.UnDrafted), "available players remaining.")
+	log.Println(pDesc, "was kept.", len(r.Available), "available players remaining.")
 }
 
 func choose(choices []players.Player) (p players.Player, _ error) {

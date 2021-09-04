@@ -1,9 +1,9 @@
 package players
 
 type Repo struct {
-	Drafted   []Player
+	Claimed   []Player
 	Position  int
-	UnDrafted []Player
+	Available []Player
 }
 
 func NewRepo(players []Player) *Repo {
@@ -12,7 +12,7 @@ func NewRepo(players []Player) *Repo {
 		return pos[p.Position]
 	}
 	return &Repo{
-		Drafted:   []Player{},
-		UnDrafted: filter(players, f),
+		Claimed:   []Player{},
+		Available: filter(players, f),
 	}
 }

@@ -10,7 +10,7 @@ func (r *Repo) Floor() []Player {
 }
 
 func (r *Repo) FloorByPos(pos string) []Player {
-	plyrs := filter(r.UnDrafted, func(p Player) bool {
+	plyrs := filter(r.Available, func(p Player) bool {
 		return strings.ToUpper(pos) == strings.ToUpper(p.Position)
 	})
 	floor := func(p1, p2 Player) bool {
@@ -28,7 +28,7 @@ func (r *Repo) Ceil() []Player {
 }
 
 func (r *Repo) CeilByPos(pos string) []Player {
-	plyrs := filter(r.UnDrafted, func(p Player) bool {
+	plyrs := filter(r.Available, func(p Player) bool {
 		return strings.ToUpper(pos) == strings.ToUpper(p.Position)
 	})
 	ceil := func(p1, p2 Player) bool {
@@ -50,7 +50,7 @@ func (r *Repo) Team(name string) []Player {
 
 func (r *Repo) group(sortFunc By, max int) (results []Player) {
 	for _, pos := range OrderedPositions() {
-		undrafted := filter(r.UnDrafted, func(p Player) bool {
+		undrafted := filter(r.Available, func(p Player) bool {
 			return p.Position == pos
 		})
 		sortFunc.Sort(undrafted)

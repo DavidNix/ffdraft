@@ -19,8 +19,8 @@ var unDrafted = []Player{
 }
 
 var subject = &Repo{
-	Drafted:   drafted,
-	UnDrafted: unDrafted,
+	Claimed:   drafted,
+	Available: unDrafted,
 }
 
 func TestRepo_Find(t *testing.T) {

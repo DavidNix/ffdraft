@@ -3,10 +3,10 @@ package players
 import "github.com/pkg/errors"
 
 func (r *Repo) Pick(p Player) error {
-	for i, player := range r.UnDrafted {
+	for i, player := range r.Available {
 		if p == player {
-			r.Drafted = append(r.Drafted, p)
-			r.UnDrafted = append(r.UnDrafted[:i], r.UnDrafted[i+1:]...)
+			r.Claimed = append(r.Claimed, p)
+			r.Available = append(r.Available[:i], r.Available[i+1:]...)
 			r.Position++
 			return nil
 		}
@@ -15,10 +15,10 @@ func (r *Repo) Pick(p Player) error {
 }
 
 func (r *Repo) UnPick(p Player) error {
-	for i, player := range r.Drafted {
+	for i, player := range r.Claimed {
 		if p == player {
-			r.UnDrafted = append(r.UnDrafted, p)
-			r.Drafted = append(r.Drafted[:i], r.Drafted[i+1:]...)
+			r.Available = append(r.Available, p)
+			r.Claimed = append(r.Claimed[:i], r.Claimed[i+1:]...)
 			r.Position--
 			return nil
 		}
