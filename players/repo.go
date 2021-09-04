@@ -16,3 +16,16 @@ func NewRepo(players Players) *Repo {
 		Available: players.Filter(f),
 	}
 }
+
+func (r *Repo) SyncTeam(t *Team) {
+	r.Claimed = t.Players
+
+	r.Available = r.Available.Filter(func(p Player) bool {
+		for _, claimed := range r.Claimed {
+			if claimed.ID != p.ID {
+				return true
+			}
+		}
+		return false
+	})
+}

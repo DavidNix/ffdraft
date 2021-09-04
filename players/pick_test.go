@@ -9,7 +9,7 @@ import (
 func TestRepo_Pick(t *testing.T) {
 	p := Player{ID: 1}
 	r := &Repo{
-		Available: []Player{p},
+		Available: []Player{{ID: 1, ADP: 45}},
 	}
 	var err error
 
@@ -33,7 +33,7 @@ func TestRepo_UnPick(t *testing.T) {
 	p := Player{ID: 1}
 	r := &Repo{
 		Position: 3,
-		Claimed:  []Player{p},
+		Claimed:  []Player{{ID: 1, ADP: 45}},
 	}
 
 	var err error

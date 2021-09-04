@@ -6,21 +6,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var drafted = []Player{
-	{NameFirst: "Antonio", NameLast: "Brown", Position: "WR"},
-	{NameFirst: "Tony", NameLast: "Romo", Position: "QB"},
+var claimed = []Player{
+	{ID: 1, NameFirst: "Antonio", NameLast: "Brown", Position: "WR"},
+	{ID: 2, NameFirst: "Tony", NameLast: "Romo", Position: "QB"},
 }
 
-var unDrafted = []Player{
-	{NameFirst: "Jason", NameLast: "Witten", Position: "TE"},
-	{NameFirst: "Josh", NameLast: "Gordon", Position: "WR"},
-	{NameFirst: "Joshua Smith", Position: "RB"},
-	{NameFirst: "Tim", NameLast: "Tebow", Position: "Baseball"},
+var avail = []Player{
+	{ID: 3, NameFirst: "Jason", NameLast: "Witten", Position: "TE"},
+	{ID: 5, NameFirst: "Joshua Smith", Position: "RB"},
+	{ID: 6, NameFirst: "Tim", NameLast: "Tebow", Position: "filtered out"},
+	{ID: 4, NameFirst: "Josh", NameLast: "Gordon", Position: "WR"},
 }
 
 var subject = &Repo{
-	Claimed:   drafted,
-	Available: unDrafted,
+	Claimed:   claimed,
+	Available: avail,
 }
 
 func TestRepo_Find(t *testing.T) {
@@ -45,11 +45,31 @@ func TestRepo_Find(t *testing.T) {
 }
 
 func TestNewRepo(t *testing.T) {
-	r := NewRepo(unDrafted)
+	r := NewRepo(avail)
 
 	tebow := r.FindAll("Tim Tebow")
 	require.Equal(t, len(tebow), 0)
 
 	witten := r.FindAll("Witten")
 	require.Equal(t, len(witten), 1)
+}
+
+func TestRepo_SyncTeam(t *testing.T) {
+	player := Player{ID: 99, NameFirst: "Troy", NameLast: "Ache-man", Position: "QB"}
+	all := append(avail, player)
+	r := NewRepo(all)
+	r.Claimed = make(Players, 3)
+	availCount := len(r.Available)
+
+	team := Team{
+		Players: Players{
+			player,
+		},
+	}
+
+	r.SyncTeam(&team)
+
+	require.Len(t, r.Claimed, 1)
+	require.Equal(t, team.Players, r.Claimed)
+	require.Len(t, r.Available, availCount-1)
 }

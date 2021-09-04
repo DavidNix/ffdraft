@@ -46,11 +46,12 @@ func teamInteractive(ctx *cli.Context) error {
 	if err != nil {
 		return err
 	}
-
 	team, err := loadTeam(ctx.String("name"))
 	if err != nil {
 		return err
 	}
+	repo.SyncTeam(team)
+
 	defer mustSaveTeam(team)
 
 	log.Println(teamUsage)

@@ -26,7 +26,7 @@ func TeamAdd(r *players.Repo, t *players.Team, args []string) {
 
 func TeamRemove(r *players.Repo, t *players.Team, args []string) {
 	name := strings.Join(args, " ")
-	p, err := choose(r.FindAvailable(name))
+	p, err := choose(r.FindUnavailable(name))
 	if err != nil {
 		log.Println(err)
 		return

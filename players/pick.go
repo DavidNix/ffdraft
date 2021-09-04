@@ -4,7 +4,7 @@ import "github.com/pkg/errors"
 
 func (r *Repo) Pick(p Player) error {
 	for i, player := range r.Available {
-		if p == player {
+		if p.ID == player.ID {
 			r.Claimed = append(r.Claimed, p)
 			r.Available = append(r.Available[:i], r.Available[i+1:]...)
 			r.Position++
@@ -16,7 +16,7 @@ func (r *Repo) Pick(p Player) error {
 
 func (r *Repo) UnPick(p Player) error {
 	for i, player := range r.Claimed {
-		if p == player {
+		if p.ID == player.ID {
 			r.Available = append(r.Available, p)
 			r.Claimed = append(r.Claimed[:i], r.Claimed[i+1:]...)
 			r.Position--
