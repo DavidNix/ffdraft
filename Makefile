@@ -6,3 +6,9 @@ install: test
 
 test:
 	@go test ./... -race --timeout=60s
+
+.PHONY: projections
+WEEK ?= 0
+PPR ?= 0
+projections:
+	@rscript R/projections.R --week $(WEEK) --ppr $(PPR)
