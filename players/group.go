@@ -16,7 +16,7 @@ func (r *Repo) FloorByPos(pos string) []Player {
 	floor := func(p1, p2 Player) bool {
 		return p1.Floor > p2.Floor
 	}
-	By(floor).Sort(plyrs)
+	SortBy(floor).Sort(plyrs)
 	return plyrs[:min(30, len(plyrs))]
 }
 
@@ -34,7 +34,7 @@ func (r *Repo) CeilByPos(pos string) []Player {
 	ceil := func(p1, p2 Player) bool {
 		return p1.Ceil > p2.Ceil
 	}
-	By(ceil).Sort(plyrs)
+	SortBy(ceil).Sort(plyrs)
 	return plyrs[:min(30, len(plyrs))]
 }
 

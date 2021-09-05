@@ -14,7 +14,7 @@ func (ps Players) Filter(f FilterFn) Players {
 	return filtered
 }
 
-func (ps Players) GroupPosition(sort By, max int) (results Players) {
+func (ps Players) GroupPosition(sort SortBy, max int) (results Players) {
 	for _, pos := range OrderedPositions() {
 		players := ps.Filter(func(p Player) bool {
 			return p.Position == pos

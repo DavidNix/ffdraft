@@ -2,14 +2,14 @@ package players
 
 import "sort"
 
-type By func(p1, p2 Player) bool
+type SortBy func(p1, p2 Player) bool
 
 type playerSorter struct {
 	arr []Player
-	by  By
+	by  SortBy
 }
 
-func (by By) Sort(pls []Player) {
+func (by SortBy) Sort(pls []Player) {
 	ps := &playerSorter{pls, by}
 	sort.Sort(ps)
 }

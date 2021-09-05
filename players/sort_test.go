@@ -18,7 +18,7 @@ func TestBy_Sort(t *testing.T) {
 	floor := func(p1, p2 Player) bool {
 		return p1.Floor > p2.Floor
 	}
-	By(floor).Sort(plys)
+	SortBy(floor).Sort(plys)
 
 	require.Equal(t, plys[0].Name(), "Khalil Mack")
 	require.Equal(t, plys[1].Name(), "Emmit Smith")
