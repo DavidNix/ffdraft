@@ -50,7 +50,9 @@ func teamInteractive(ctx *cli.Context) error {
 	if err != nil {
 		return err
 	}
+	log.Println("Loaded", len(repo.Available), "players")
 	repo.SyncTeam(team)
+	log.Println(len(repo.Available), "players remaining")
 
 	defer mustSaveTeam(team)
 

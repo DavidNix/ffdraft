@@ -20,12 +20,12 @@ func NewRepo(players Players) *Repo {
 func (r *Repo) SyncTeam(t *Team) {
 	r.Claimed = t.Players
 
+	set := make(map[int]bool)
+	for _, claimed := range r.Claimed {
+		set[claimed.ID] = true
+	}
+
 	r.Available = r.Available.Filter(func(p Player) bool {
-		for _, claimed := range r.Claimed {
-			if claimed.ID != p.ID {
-				return true
-			}
-		}
-		return false
+		return !set[p.ID]
 	})
 }
