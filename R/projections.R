@@ -16,25 +16,40 @@ ppr = opt$ppr
 week = opt$week 
 sprintf("Getting projections for %s Week %d with PPR %s", year, week, ppr)
 
-pos = c("QB", "RB", "WR", "TE", "K", "DST")
-scraped = scrape_data(pos = pos, season = as.integer(year), week = week)
-
-
-save_projections <- function(projections, filename) {
-  final = projections %>% add_adp() %>% add_player_info() %>% add_ecr() %>% add_risk()
-  # avg_types: average, weighted, robust
-  final %>% filter(avg_type == "weighted") %>% write.csv(file = filename, row.names=FALSE)
+# Temporarily remove sources because they are causing problems
+if (week > 0) {
+  # removed: FantasySharks, NumberFire, NFL, WalterFootball
+  print("WARNING REMOVING SOURCES")
+  src = c("CBS", "ESPN", "FantasyData", "FantasyPros", "FFToday",
+          "FleaFlicker", "Yahoo", "FantasyFootballNerd", "RTSports")
 }
+
+pos = c("QB", "RB", "WR", "TE", "K", "DST")
+scraped = scrape_data(src = src, pos = pos, season = as.integer(year), week = week)
+
+projections = NULL
+filename = NULL
 
 if (ppr > 0) {
   ppr_scoring = custom_scoring(pass_yds = 0.04, pass_tds = 4,
                                rush_yds = 0.1, rush_tds = 6,
-                               rec = ppr, rec_yds = 0.1, rec_tds = 6)
+                               rec = 0.5, rec_yds = 0.1, rec_tds = 6)
   print("Calculating PPR projections")
+  filename = "ppr_projections.csv"
   projections = projections_table(scraped, scoring_rules = ppr_scoring)
-  save_projections(projections, "ppr_projections.csv")
+  
 } else {
   print("Calculating standard projections")
+  filename = "standard_projections.csv"
   projections = projections_table(scraped)
-  save_projections(projections, "standard_projections.csv")
+}
+
+final = projections %>% add_adp() %>% add_player_info() %>% add_ecr() %>% add_risk()
+fname = paste("week", week, "_", filename, sep="")
+# avg_types: average, weighted, robust
+sprintf("file saved as %s", fname)
+final %>% filter(avg_type == "weighted") %>% write.csv(file = fname, row.names=FALSE)
+  
+if (ppr > 0) {
+  warning("WARNING PPR HARDCODED TO 0.5")
 }
