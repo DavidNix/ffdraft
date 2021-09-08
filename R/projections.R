@@ -16,12 +16,30 @@ ppr = opt$ppr
 week = opt$week 
 sprintf("Getting projections for %s Week %d with PPR %s", year, week, ppr)
 
+src = c(
+  "FantasySharks",
+  "NumberFire",
+  "NFL",
+  "WalterFootball",
+  "CBS", 
+  "ESPN", 
+  "FantasyData", 
+  "FantasyPros", 
+  "FFToday",
+  "FleaFlicker", 
+  "Yahoo", 
+  "FantasyFootballNerd", 
+  "RTSports")
+
 # Temporarily remove sources because they are causing problems
 if (week > 0) {
-  # removed: FantasySharks, NumberFire, NFL, WalterFootball
   print("WARNING REMOVING SOURCES")
-  src = c("CBS", "ESPN", "FantasyData", "FantasyPros", "FFToday",
-          "FleaFlicker", "Yahoo", "FantasyFootballNerd", "RTSports")
+  src = src[! src %in% c(
+    "FantasySharks",
+    "NumberFire",
+    "NFL",
+    "WalterFootball"
+    )]   
 }
 
 pos = c("QB", "RB", "WR", "TE", "K", "DST")
