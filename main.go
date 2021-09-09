@@ -18,7 +18,6 @@ func main() {
 		Description: "Relies on the good work of https://github.com/FantasyFootballAnalytics/ffanalytics",
 		Commands: []*cli.Command{
 			draftCmd,
-			lineupCmd,
 			teamCmd,
 		},
 		Authors:   []*cli.Author{{Name: "David Nix"}},
