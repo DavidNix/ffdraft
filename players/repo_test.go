@@ -54,22 +54,19 @@ func TestNewRepo(t *testing.T) {
 	require.Equal(t, len(witten), 1)
 }
 
-func TestRepo_SyncTeam(t *testing.T) {
+func TestRepo_Sync(t *testing.T) {
 	player := Player{ID: 99, NameFirst: "Troy", NameLast: "Ache-man", Position: "QB"}
 	all := append(avail, player)
 	r := NewRepo(all)
 	r.Claimed = make(Players, 3)
 	availCount := len(r.Available)
 
-	team := Team{
-		Players: Players{
-			player,
-		},
-	}
-
-	r.SyncTeam(&team)
+	plyrs := []TeamPlayer{{ID: 99}}
+	r.Sync(plyrs)
 
 	require.Len(t, r.Claimed, 1)
-	require.Equal(t, team.Players, r.Claimed)
+	require.Equal(t, player, r.Claimed[0])
+
 	require.Len(t, r.Available, availCount-1)
+	require.NotContains(t, r.Available, player)
 }

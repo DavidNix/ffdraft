@@ -8,7 +8,6 @@ import (
 
 	"github.com/davidnix/ffdraft/command"
 	"github.com/davidnix/ffdraft/players"
-	"github.com/davidnix/ffdraft/presenter"
 	"github.com/pkg/errors"
 	"github.com/urfave/cli/v2"
 )
@@ -36,9 +35,13 @@ const teamUsage = `
 --------------------------------------------------------------------------------------------------------------------
 Commands:
     add [name]:             adds player to your team	
-    rm [name]:              removes player from your team
+    ceil:                   print the highest ceiling value for available players for each position
     exit, ctl+D:            exits this program
+    find, f [name]:         fuzzy finds players matching player name
+    floor, fl:              sort by highest floor value for your team
     help, h:                print this help text
+    rm, drop [name]:        removes player from your team
+    team:                   print a team's depth chart
 --------------------------------------------------------------------------------------------------------------------`
 
 func teamInteractive(ctx *cli.Context) error {
@@ -51,21 +54,17 @@ func teamInteractive(ctx *cli.Context) error {
 		return err
 	}
 	log.Println("Loaded", len(repo.Available), "players")
-	repo.SyncTeam(team)
+	repo.Sync(team.Players)
+	log.Println(len(repo.Claimed), "players on your team")
 	log.Println(len(repo.Available), "players remaining")
 
-	defer mustSaveTeam(team)
+	defer mustSaveTeam(team, repo)
 
 	log.Println(teamUsage)
 
-	for {
-		if len(team.Players) > 0 {
-			grouped := team.Players.GroupPosition(func(p1, p2 players.Player) bool {
-				return p1.Name() < p2.Name()
-			}, 100)
-			command.PrintTable(presenter.Team(grouped))
-		}
+	command.Lineup(repo, true)
 
+	for {
 		in, err := command.GetInput()
 		if err != nil {
 			return err
@@ -80,16 +79,30 @@ func teamInteractive(ctx *cli.Context) error {
 
 		switch cmd {
 		case "add":
-			command.TeamAdd(repo, team, args)
+			command.Pick(repo, args)
+			command.Lineup(repo, true)
 
-		case "rm":
-			command.TeamRemove(repo, team, args)
+		case "rm", "drop":
+			command.UnPick(repo, args)
+			command.Lineup(repo, true)
 
 		case "exit":
 			return errors.New("user canceled")
 
+		case "floor", "fl":
+			command.Lineup(repo, true)
+
+		case "ceil":
+			command.Lineup(repo, false)
+
+		case "team":
+			command.Team(repo, args)
+
+		case "find", "f":
+			command.Find(repo, args)
+
 		case "help", "h", "usage":
-			log.Println(draftUsage)
+			log.Println(teamUsage)
 
 		case "":
 			continue
@@ -112,7 +125,8 @@ func loadTeam(name string) (*players.Team, error) {
 	return t, errors.Wrap(err, fname)
 }
 
-func mustSaveTeam(t *players.Team) {
+func mustSaveTeam(t *players.Team, repo *players.Repo) {
+	t.Sync(repo.Claimed)
 	fname := t.Name + ".json"
 	log.Println("saving team to", fname)
 	b, err := json.Marshal(t)

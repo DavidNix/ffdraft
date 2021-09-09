@@ -17,14 +17,14 @@ func NewRepo(players Players) *Repo {
 	}
 }
 
-func (r *Repo) SyncTeam(t *Team) {
-	r.Claimed = t.Players
-
+func (r *Repo) Sync(plyrs []TeamPlayer) {
 	set := make(map[int]bool)
-	for _, claimed := range r.Claimed {
+	for _, claimed := range plyrs {
 		set[claimed.ID] = true
 	}
-
+	r.Claimed = r.Available.Filter(func(p Player) bool {
+		return set[p.ID]
+	})
 	r.Available = r.Available.Filter(func(p Player) bool {
 		return !set[p.ID]
 	})
