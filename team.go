@@ -103,6 +103,9 @@ func teamInteractive(ctx *cli.Context) error {
 		case "find", "f":
 			command.Find(repo, args)
 
+		case "show", "s":
+			command.Lineup(repo)
+
 		case "help", "h", "usage":
 			log.Println(teamUsage)
 
