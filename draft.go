@@ -37,7 +37,7 @@ Commands:
     keep:                   remove a player without advancing draft position (useful for keeper leagues)
     pick, p [name]:         removes player from draft pool
     position, dp:           print current draft position
-    team:                   print a team's depth chart
+    depth, team:            print a team's depth chart
     unpick, u [name]: 	    adds player back to draft pool
 --------------------------------------------------------------------------------------------------------------------`
 
@@ -99,7 +99,7 @@ func startInteractive(repo *players.Repo) error {
 		case "ceil":
 			command.Ceil(repo, args)
 
-		case "team":
+		case "depth", "team":
 			command.Team(repo, args)
 
 		case "position", "dp":

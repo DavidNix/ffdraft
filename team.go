@@ -36,13 +36,14 @@ const teamUsage = `
 Commands:
 	add [name]:             adds player to your team
 	ceil:                   print the highest ceiling value for available players for each position
+	depth, team:            print a team's depth chart
 	exit, ctl+D:            exits this program
 	find, f [name]:         fuzzy finds players matching player name
 	floor, fl:              sort by highest floor value for your team
 	help, h:                print this help text
 	rm, drop [name]:        removes player from your team
-	team:                   print a team's depth chart
-	waiver, w               show available sorted by highest floor value
+	show, s:                show your team grouped by position
+	waiver, w:              show available sorted by highest floor value
 --------------------------------------------------------------------------------------------------------------------`
 
 func teamInteractive(ctx *cli.Context) error {
@@ -63,7 +64,7 @@ func teamInteractive(ctx *cli.Context) error {
 
 	log.Println(teamUsage)
 
-	command.Lineup(repo, true)
+	command.Lineup(repo)
 
 	for {
 		in, err := command.GetInput()
@@ -81,22 +82,22 @@ func teamInteractive(ctx *cli.Context) error {
 		switch cmd {
 		case "add":
 			command.Pick(repo, args)
-			command.Lineup(repo, true)
+			command.Lineup(repo)
 
 		case "rm", "drop":
 			command.UnPick(repo, args)
-			command.Lineup(repo, true)
+			command.Lineup(repo)
 
 		case "exit":
 			return errors.New("user canceled")
 
 		case "floor", "fl":
-			command.Lineup(repo, true)
+			command.LineupFloor(repo)
 
 		case "ceil":
-			command.Lineup(repo, false)
+			command.LineupCeil(repo)
 
-		case "team":
+		case "depth", "team":
 			command.Team(repo, args)
 
 		case "find", "f":
