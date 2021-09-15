@@ -35,15 +35,15 @@ const teamUsage = `
 --------------------------------------------------------------------------------------------------------------------
 Commands:
 	add [name]:             adds player to your team
-	ceil:                   print the highest ceiling value for available players for each position
-	depth, team:            print a team's depth chart
+	ceil [pos]:             print the highest ceiling value for available players for each position
+	depth [team]:           print a team's depth chart
 	exit, ctl+D:            exits this program
 	find, f [name]:         fuzzy finds players matching player name
-	floor, fl:              sort by highest floor value for your team
+	floor, fl [pos]:        sort by highest floor value for your team
 	help, h:                print this help text
 	rm, drop [name]:        removes player from your team
 	show, s:                show your team grouped by position
-	waiver, w:              show available sorted by highest floor value
+    team [floor|ceil]       show your team sorted by floor|ceil
 --------------------------------------------------------------------------------------------------------------------`
 
 func teamInteractive(ctx *cli.Context) error {
@@ -80,6 +80,12 @@ func teamInteractive(ctx *cli.Context) error {
 		}
 
 		switch cmd {
+		case "team":
+			if len(args) > 0 && args[0] == "ceil" {
+				command.LineupCeil(repo)
+			} else {
+				command.LineupFloor(repo)
+			}
 		case "add":
 			command.Pick(repo, args)
 			command.Lineup(repo)
@@ -92,13 +98,13 @@ func teamInteractive(ctx *cli.Context) error {
 			return errors.New("user canceled")
 
 		case "floor", "fl":
-			command.LineupFloor(repo)
+			command.Floor(repo, args)
 
 		case "ceil":
-			command.LineupCeil(repo)
+			command.Ceil(repo, args)
 
-		case "depth", "team":
-			command.Team(repo, args)
+		case "depth":
+			command.DepthChart(repo, args)
 
 		case "find", "f":
 			command.Find(repo, args)
@@ -108,9 +114,6 @@ func teamInteractive(ctx *cli.Context) error {
 
 		case "help", "h", "usage":
 			log.Println(teamUsage)
-
-		case "waiver", "w":
-			command.Floor(repo, args)
 
 		case "":
 			continue

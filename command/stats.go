@@ -28,7 +28,7 @@ func Ceil(repo *players.Repo, args []string) {
 	}
 }
 
-func Team(repo *players.Repo, args []string) {
+func DepthChart(repo *players.Repo, args []string) {
 	log.Println("DEPTH CHART:")
 	PrintTable(presenter.Players(repo.Team(strings.Join(args, ""))))
 }
