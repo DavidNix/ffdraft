@@ -49,7 +49,7 @@ func interactiveAction(ctx *cli.Context) error {
 
 	log.Println("Welcome to fantasy football!")
 	color.HiGreen("Loaded %d offensive players", len(repo.Available))
-	command.Floor(repo, []string{})
+	command.Floor(repo, []string{}, 30)
 
 	preventSigTerm()
 	return startInteractive(repo)
@@ -94,10 +94,10 @@ func startInteractive(repo *players.Repo) error {
 			command.Keep(repo, args)
 
 		case "floor", "fl":
-			command.Floor(repo, args)
+			command.Floor(repo, args, 30)
 
 		case "ceil":
-			command.Ceil(repo, args)
+			command.Ceil(repo, args, 30)
 
 		case "depth":
 			command.DepthChart(repo, args)

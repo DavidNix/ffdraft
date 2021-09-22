@@ -98,10 +98,10 @@ func teamInteractive(ctx *cli.Context) error {
 			return errors.New("user canceled")
 
 		case "floor", "fl":
-			command.Floor(repo, args)
+			command.Floor(repo, args, 1000)
 
 		case "ceil":
-			command.Ceil(repo, args)
+			command.Ceil(repo, args, 1000)
 
 		case "depth":
 			command.DepthChart(repo, args)
