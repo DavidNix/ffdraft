@@ -74,7 +74,7 @@ func startInteractive(repo *players.Repo) error {
 		}
 		input := strings.Fields(in)
 		var cmd string
-		args := []string{}
+		var args []string
 		if len(input) > 0 {
 			cmd = input[0]
 			args = input[1:]
